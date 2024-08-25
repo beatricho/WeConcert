@@ -1,5 +1,5 @@
-/*
+package it.unibo.tw.web.beans;
 
-The way that you flick your hair makes me overwhelmes
-
-*/
+public class Utente {
+    
+}
