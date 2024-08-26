@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeConcert - Welcome</title>
+    <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+    <div class="welcome-page">
+        <header>
+            <img src="logo.png" alt="WeConcert Logo" class="logo">
+            <nav class="toolbar">
+                <ul>
+                    <li><a href="#" onclick="showSection('profilo')">Profilo</a></li>
+                    <li><a href="#" onclick="showSection('pubblica')">Pubblica</a></li>
+                    <li><a href="#" onclick="showSection('chat')">Chat</a></li>
+                    <li><a href="#" onclick="showSection('ricerca')">Ricerca</a></li>
+                    <li><a href="#" onclick="showSection('adesioni')">Adesioni</a></li>
+                    <li><a href="#" onclick="showSection('recensisci')">Recensisci</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h1>Benvenuto su WeConcert!</h1>
+            <p>Scegli una delle opzioni sopra per continuare.</p>
+            <img src="bottom.png" alt="Bottom Image" class="bottom-image">
+        </main>
+    </div>
+
+    <div class="section" id="profilo">
+        <header>
+            <img src="logo.png" alt="WeConcert Logo" class="logo">
+            <nav class="toolbar"></nav>
+        </header>
+        <h2>Profilo</h2>
+        <p>Contenuto della sezione Profilo.</p>
+        <button onclick="goBack()">Torna alla schermata iniziale</button>
+        <img src="bottom.png" alt="Bottom Image" class="bottom-image">
+    </div>
+
+    <div class="section" id="pubblica">
+        <header>
+            <img src="logo.png" alt="WeConcert Logo" class="logo">
+            <nav class="toolbar"></nav>
+        </header>
+        <h2>Pubblica</h2>
+        <p>Contenuto della sezione Pubblica.</p>
+        <button onclick="goBack()">Torna alla schermata iniziale</button>
+        <img src="bottom.png" alt="Bottom Image" class="bottom-image">
+    </div>
+
+    <div class="section" id="chat">
+        <header>
+            <img src="logo.png" alt="WeConcert Logo" class="logo">
+            <nav class="toolbar"></nav>
+        </header>
+        <h2>Chat</h2>
+        <p>Contenuto della sezione Chat.</p>
+        <button onclick="goBack()">Torna alla schermata iniziale</button>
+        <img src="bottom.png" alt="Bottom Image" class="bottom-image">
+    </div>
+
+    <div class="section" id="ricerca">
+        <header>
+            <img src="logo.png" alt="WeConcert Logo" class="logo">
+            <nav class="toolbar"></nav>
+        </header>
+        <h2>Ricerca</h2>
+        <p>Contenuto della sezione Ricerca.</p>
+        <button onclick="goBack()">Torna alla schermata iniziale</button>
+        <img src="bottom.png" alt="Bottom Image" class="bottom-image">
+    </div>
+
+    <div class="section" id="adesioni">
+        <header>
+            <img src="logo.png" alt="WeConcert Logo" class="logo">
+            <nav class="toolbar"></nav>
+        </header>
+        <h2>Adesioni</h2>
+        <p>Contenuto della sezione Adesioni.</p>
+        <button onclick="goBack()">Torna alla schermata iniziale</button>
+        <img src="bottom.png" alt="Bottom Image" class="bottom-image">
+    </div>
+
+    <div class="section" id="recensisci">
+        <header>
+            <img src="logo.png" alt="WeConcert Logo" class="logo">
+            <nav class="toolbar"></nav>
+        </header>
+        <h2>Recensisci</h2>
+        <p>Contenuto della sezione Recensisci.</p>
+        <button onclick="goBack()">Torna alla schermata iniziale</button>
+        <img src="bottom.png" alt="Bottom Image" class="bottom-image">
+    </div>
+
+    <script src="welcome.js"></script>
+</body>
+</html>
