@@ -3,7 +3,7 @@
 
 <web-app>
 
-    <display-name>05_TecWeb1011</display-name>
+    <display-name>WeConcert</display-name>
     <description>
       Application Description
     </description>
@@ -11,12 +11,21 @@
     <!-- Define servlets that are included in the application -->
 
     <servlet>
-        <servlet-name>WaitingServlet</servlet-name>
-        <servlet-class>it.unibo.tw.web.servlets.WaitingServlet</servlet-class>
+        <servlet-name>Autenticazione</servlet-name>
+        <servlet-class>it.unibo.tw.web.servlets.Autenticazione</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>WaitingServlet</servlet-name>
-        <url-pattern>/waitingServlet</url-pattern>
+        <servlet-name>Autenticazione</servlet-name>
+        <url-pattern>/autenticazione</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Registrazione</servlet-name>
+        <servlet-class>it.unibo.tw.web.servlets.Registrazione</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Registrazione</servlet-name>
+        <url-pattern>/registrazione</url-pattern>
     </servlet-mapping>
 
 	<!-- Handle exceptions and errors -->
