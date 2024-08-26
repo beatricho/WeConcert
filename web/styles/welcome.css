@@ -1,0 +1,106 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #f4f4f4;
+    z-index: 1000;
+}
+
+.logo {
+    max-width: 300px;
+    margin: 20px 0;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: center;
+    background-color: #104862;
+    padding: 10px 0;
+    width: 100%;
+    height: 20px;
+}
+
+.toolbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.toolbar li {
+    margin: 0 15px;
+}
+
+.toolbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.toolbar a:hover {
+    text-decoration: underline;
+}
+
+main {
+    text-align: center;
+    padding-top: 200px; /* Adjust this padding to ensure content is not hidden behind the fixed header */
+}
+
+.welcome-page h1 {
+    font-size: 2.5em;
+    color: #104862;
+    margin-bottom: 10px;
+}
+
+.welcome-page p {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.bottom-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 100px auto;
+}
+
+.section {
+    display: none;
+    text-align: center;
+    padding-top: 200px; /* Adjust this padding to ensure content is not hidden behind the fixed header */
+}
+
+.section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.section p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.section button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.section button:hover {
+    background-color: #555;
+}
