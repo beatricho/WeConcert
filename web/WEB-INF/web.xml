@@ -28,6 +28,10 @@
         <url-pattern>/registrazione</url-pattern>
     </servlet-mapping>
 
+    <welcome-file-list>
+		<welcome-file>login-reg.jsp</welcome-file>
+	</welcome-file-list>
+
 	<!-- Handle exceptions and errors -->
 	
 	<error-page>

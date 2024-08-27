@@ -14,15 +14,31 @@
         <div class="cont">
             <div class="form sign-in">
                 <h2>Benvenuto</h2>
+                
+                <script>
+			        function validateFormLog() {
+			            // Ottieni il valore del campo di testo
+			            var user = document.getElementById("username").value;
+						var pwd = document.getElementById("password").value;
+			            // Controlla se il campo è vuoto
+			            if (user.trim() === "" || pwd.trim() === "") {
+			                // Mostra un alert
+			                alert("I campi testo non possono essere vuoti per eseguire il login!");
+			                return false; // Previene l'invio del form
+			            }
+			
+			            return true; // Permette l'invio del form
+			        }
+    			</script>
 
-                <form action="autenticazione" method="post">
+                <form action="autenticazione" method="post" onsubmit="return validateFormLog()">
                     <label>
                         <span>Username</span>
-                        <input type="text" name="username" />
+                        <input type="text" id="username" name="username" />
                     </label>
                     <label>
                         <span>Password</span>
-                        <input type="password" name="password"/>
+                        <input type="password" id="password" name="password"/>
                     </label>
                     <button type="submit" class="submit">Login</button>
                 </form>
@@ -46,8 +62,32 @@
                                     Riprovare <br> <br>
                                 <% 
                             }break;
+                          
                         }
                     }
+                    
+                    session.removeAttribute("log");
+                    
+                    Integer reg = (Integer) session.getAttribute("reg");
+                    if(reg !=null){
+                        switch(reg){
+
+                            case 1:{
+                                %>
+                                    Username gia' registrato...Riprovare
+                                <% 
+                            }break;
+
+                            case 2:{
+                                %>
+                                    Registrazione avvenuta con successo
+                                <% 
+                            }break;
+                            
+                        }
+                    }
+                    
+                    session.removeAttribute("reg");
                 %>
 
             </div>
@@ -68,58 +108,53 @@
                 </div>
                 <div class="form sign-up">
                     <h2>Crea il tuo profilo</h2>
-                    <form action="registrazione" method="post">
+                    
+                    <script>
+				        function validateFormReg() {
+				            // Ottieni il valore del campo di testo
+				            var nome_cogn = document.getElementById("nome_cognome").value;
+							var genere = document.getElementById("genere").value;
+							var nascita = document.getElementById("nascita").value;
+							var user = document.getElementById("usernameR").value;
+							var pwd = document.getElementById("passwordR").value;
+							
+				            // Controlla se il campo è vuoto
+				            if (nome_cogn.trim() === "" || genere.trim() === "" || nascita.trim() === "" || user.trim() === "" || pwd.trim() === "") {
+				                // Mostra un alert
+				                alert("I campi testo non possono essere vuoti per eseguire la registrazione!");
+				                return false; // Previene l'invio del form
+				            }
+				
+				            return true; // Permette l'invio del form
+				        }
+    				</script>
+                    
+                    <form action="registrazione" method="get" onsubmit="return validateFormReg()">
                         <label>
                             <span>Nome e cognome</span>
-                            <input type="text" name="nome_cognome" />
+                            <input type="text" name="nome_cognome" id="nome_cognome" />
                         </label>
                         <label>
                             <span>Genere</span>
-                            <select name="genere">
-                                <option value='Uomo'>Uomo</option>
-                                <option value='Donna'>Donna</option>
+                            <select name="genere" id="genere">
+                                <option value='Uomo'>UOMO</option>
+                                <option value='Donna'>DONNA</option>
                             </select>
                         </label>
                         <label>
                             <span>Data di Nascita</span>
-                            <input type="date" name="nascita"/>
+                            <input type="date" name="nascita" id="nascita"/>
                         </label>
                         <label>
                             <span>Username</span>
-                            <input type="text" name="username"/>
+                            <input type="text" name="username" id="usernameR"/>
                         </label>
                         <label>
                             <span>Password</span>
-                            <input type="password" name="password" />
+                            <input type="password" name="password" id="passwordR"/>
                         </label>
                         <button type="submit" class="submit">Registrati</button>
                     </form>
-
-                    <%
-                        Integer reg = (Integer) session.getAttribute("reg");
-                        if(reg !=null){
-                            switch(reg){
-                                case 1:{
-                                    %>
-                                        Uno dei campi e' vuoto...Riprovare
-                                    <% 
-                                }break;
-
-                                case 2:{
-                                    %>
-                                        Username gia' registrato...Riprovare
-                                    <% 
-                                }break;
-
-                                case 3:{
-                                    %>
-                                        Registrazione avvenuta con successo
-                                    <% 
-                                }break;
-                                
-                            }
-                        }
-                    %>
 
                 </div>
             </div>

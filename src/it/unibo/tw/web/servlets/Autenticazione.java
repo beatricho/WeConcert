@@ -60,7 +60,7 @@ public class Autenticazione extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        
         if (username.equals("admin") && password.equals("admin")) { // amministratore
             response.sendRedirect("adminPage.html");
         } else { // utente qualsiasi

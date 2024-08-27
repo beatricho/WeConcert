@@ -64,44 +64,38 @@ public class Registrazione extends HttpServlet {
         nome_cognome = request.getParameter("nome_cognome").split(" ");
         String nome = nome_cognome[0];
         String cognome = nome_cognome[1];
-        Genere genere = Genere.valueOf(request.getParameter("genere"));
+        Genere genere = Genere.valueOf(request.getParameter("genere").toUpperCase());
         LocalDate nascita = LocalDate.parse(request.getParameter("nascita"));
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         HttpSession sessione = request.getSession();
         boolean registrato = false;
         List<Utente> utenti = (List<Utente>) this.getServletContext().getAttribute("utenti");
-
-        if (nome.equals("") || cognome.equals("") || username.equals("") || password.equals("") || genere == null || nascita == null) {
-            sessione.setAttribute("reg", 1);
-        } else {
-
-            for (Utente user : utenti) {
-                if (user.getUsername().equals(username)) {
-                    registrato = true;
-                    break;
-                }
+        
+        for (Utente user : utenti) {
+            if (user.getUsername().equals(username)) {
+                registrato = true;
+                break;
             }
-
-            if (registrato) {
-                sessione.setAttribute("reg", 2);
-            } else {
-                Utente utente = new Utente();
-                utente.setNome(nome);
-                utente.setCognome(cognome);
-                utente.setGenere(genere);
-                utente.setNascita(nascita);
-                utente.setUsername(username);
-                utente.setPassword(password);
-
-                utenti.add(utente);
-                this.getServletContext().setAttribute("utenti", utenti);
-
-                sessione.setAttribute("reg", 3);
-            }
-
         }
 
+        if (registrato) {
+            sessione.setAttribute("reg", 1);
+        } else {
+            Utente utente = new Utente();
+            utente.setNome(nome);
+            utente.setCognome(cognome);
+            utente.setGenere(genere);
+            utente.setNascita(nascita);
+            utente.setUsername(username);
+            utente.setPassword(password);
+
+            utenti.add(utente);
+            this.getServletContext().setAttribute("utenti", utenti);
+
+            sessione.setAttribute("reg", 2);
+        }
+		
         response.sendRedirect("login-reg.jsp");
     }
 

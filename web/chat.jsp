@@ -1,10 +1,12 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagina Web di Chat</title>
-    <link rel="stylesheet" href="chat.css">
+    <link rel="stylesheet" href="styles/chat.css">
+    <script type="text/javascript" src="scripts/chat.js"></script>
 </head>
 <body>
     <div class="container">
@@ -13,7 +15,7 @@
             <div class="chat-item">Evento: Sapobully 4L</div>
 
             <div class="home-button-container">
-                <button class="home-button">Schermata Home</button>
+                <button class="home-button"><a href="WelcomeView.html">Schermata Home</a></button>
             </div>
             <!-- Aggiungi altre chat se necessario -->
         </div>
@@ -42,7 +44,7 @@
             </div>
             <div class="chat-input">
                 <input type="text" placeholder="Scrivi un messaggio...">
-                <button>Invia</button>
+                <button onclick="myFunction();">Invia</button>
             </div>
         </div>
     </div>

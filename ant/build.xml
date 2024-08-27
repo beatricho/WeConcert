@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="05_TecWeb" basedir=".." default="02.print.properties">
+<project name="WeConcert" basedir=".." default="02.print.properties">
 
 	<!-- ================ -->
 	<!-- Properties setup -->
