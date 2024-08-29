@@ -27,6 +27,16 @@
         <servlet-name>Registrazione</servlet-name>
         <url-pattern>/registrazione</url-pattern>
     </servlet-mapping>
+    
+	<servlet>
+	    <servlet-name>Profilo</servlet-name>
+        <servlet-class>it.unibo.tw.web.servlets.Profilo</servlet-class>
+	    <load-on-startup>1</load-on-startup>	<!-- Viene caricata all'avvio della web app -->
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Profilo</servlet-name>
+	    <url-pattern>/profilo</url-pattern>
+	</servlet-mapping>
 
     <welcome-file-list>
 		<welcome-file>login-reg.jsp</welcome-file>

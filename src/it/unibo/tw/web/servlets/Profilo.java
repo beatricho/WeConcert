@@ -16,6 +16,7 @@ import it.unibo.tw.web.beans.Evento;
 import it.unibo.tw.web.beans.GenereGruppo;
 import it.unibo.tw.web.beans.Post;
 import it.unibo.tw.web.beans.Utente;
+import it.unibo.tw.web.beans.Valutazione;
 import it.unibo.tw.web.beans.Recensione;
 
 public class Profilo extends HttpServlet {
@@ -34,11 +35,11 @@ public class Profilo extends HttpServlet {
         }
 
         // Inizializzazione dei post dell'utente se non presenti
-        if (this.getServletContext().getAttribute("postUtente") == null) {
+        if (this.getServletContext().getAttribute("postPubblicati") == null) {
             List<Post> postPubblicati = new ArrayList<Post>();
             
             // Creazione del primo post
-            List<Evento> eventi = (List<Evento>) this.getServletContext().getAttribute("eventi");
+            /* List<Evento> eventi = (List<Evento>) this.getServletContext().getAttribute("eventi"); */
             EtaGruppo eta = new EtaGruppo();
             eta.setSogliaInferiore(25);
             eta.setSogliaSuperiore(40);
@@ -47,7 +48,7 @@ public class Profilo extends HttpServlet {
             
             Post post = new Post();
             post.setId("post-1");
-            post.setEvento(eventi.get(0));
+            /* post.setEvento(eventi.get(0)); */
             post.setDescrizione("Qualcuno che venga con me a vedere il grande CLAUDIO BISIO??????");
             post.setUtentePubblicante(utenteCorrente);
             post.setDisponibilitaMezzo(DisponibilitaMezzo.HO);
@@ -64,20 +65,20 @@ public class Profilo extends HttpServlet {
                         
             postPubblicati.add(post);
             
+
             // Secondo post
             post = new Post();
             eta = new EtaGruppo();
             eta.setSogliaInferiore(18);
             eta.setSogliaSuperiore(24);
             post.setId("post-2");
-            post.setEvento(eventi.get(1));
+            /* post.setEvento(eventi.get(1)); */
             post.setDescrizione("Cerco degli omies per proxare il nuovo drop di Tedua ueue");
             post.setUtentePubblicante(utenteCorrente);
             post.setDisponibilitaMezzo(DisponibilitaMezzo.NON_HO_E_CERCO);
             post.setEtaGruppo(eta);
             post.setGenereGruppo(GenereGruppo.MASCHILE);
             post.setPartecipantiMax(5);
-            postPubblicati.add(post);
 
             // Creazione di adesioni al secondo post
             utenteAderente = new Utente();
@@ -95,26 +96,44 @@ public class Profilo extends HttpServlet {
                         
             postPubblicati.add(post);
 
-            this.getServletContext().setAttribute("postUtente", postPubblicati);
+            this.getServletContext().setAttribute("postPubblicati", postPubblicati);
         }
       
 
         // Creazione di recensioni fittizie fatte all'utente corrente
         if(this.getServletContext().getAttribute("recensioni") == null){
             List<Recensione> recensioni = new ArrayList<Recensione>();
-            for (int i = 1; i <= 3; i++) {
-                Recensione recensione = new Recensione();
-                recensione.setId("rec" + i);
-                recensione.setCommento(i % 2 == 0 ? "Pollice in su" : "Pollice in giù");
-                recensione.setCommento("Commento recensione " + i);
-                recensioni.add(recensione);
-            }
+            Recensione recensione = new Recensione();
+            recensione.setId("rec1");
+            recensione.setValutazione(Valutazione.ECCELLENTE);
+            recensione.setCommento("Compagno favoloso!!");
+            recensioni.add(recensione);
+            
+            recensione = new Recensione();
+            recensione.setId("rec2");
+            recensione.setValutazione(Valutazione.BUONO);
+            recensione.setCommento("Tutto apposto");
+            recensioni.add(recensione);
+            
+            recensione = new Recensione();
+            recensione.setId("rec3");
+            recensione.setValutazione(Valutazione.PESSIMO);
+            recensione.setCommento("Mi ha fatto aspettare sotto la pioggia per mezz'ora, pessimo, MAI PIU' :(");
+            recensioni.add(recensione);
             this.getServletContext().setAttribute("recensioni", recensioni);
         }
     }
 
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Log di controllo per assicurare che GET funzioni
+        System.out.println("GET request ricevuta in Profilo.");
+        getServletContext().getRequestDispatcher("/profilo.jsp").forward(request, response);
+    }
 
-    public void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String action = request.getParameter("action");
         List<Post> postPubblicati = (List<Post>) this.getServletContext().getAttribute("postPubblicati");
 

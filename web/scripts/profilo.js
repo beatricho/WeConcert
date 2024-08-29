@@ -2,7 +2,7 @@
 function modificaPost(postId) {
     const nuovaDescrizione = prompt('Inserisci nuova descrizione per il post:');
     if (nuovaDescrizione) {
-        fetch('Profilo', {
+        fetch('profilo', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ action: 'modificaDescrizionePost', postId: postId, nuovaDescrizione: nuovaDescrizione })
@@ -11,7 +11,7 @@ function modificaPost(postId) {
                 alert('Descrizione modificata con successo!');
                 location.reload(); // Ricarica la pagina per mostrare i dati aggiornati
             } else {
-                alert('Errore nella modifica del post.');
+				response.text().then(text => alert('Errore nella modifica del post: ' + text));
             }
         });
     }
@@ -20,7 +20,7 @@ function modificaPost(postId) {
 // Funzione per eliminare un post
 function eliminaPost(postId) {
     if (confirm('Sei sicuro di voler eliminare questo post?')) {
-        fetch('Profilo', {
+        fetch('profilo', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ action: 'eliminaPost', postId: postId })
@@ -29,7 +29,7 @@ function eliminaPost(postId) {
                 alert('Post eliminato con successo!');
                 location.reload(); // Ricarica la pagina per mostrare i dati aggiornati
             } else {
-                alert('Errore nell\'eliminazione del post.');
+				response.text().then(text => alert('Errore nella modifica del post: ' + text));
             }
         });
     }
@@ -38,7 +38,7 @@ function eliminaPost(postId) {
 // Funzione per eliminare un'adesione
 function eliminaAdesione(postId, username) {
     if (confirm(`Sei sicuro di voler eliminare l'adesione di ${username}?`)) {
-        fetch('Profilo', {
+        fetch('profilo', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ action: 'eliminaAdesione', postId: postId, username: username })
@@ -47,7 +47,7 @@ function eliminaAdesione(postId, username) {
                 alert('Adesione eliminata con successo!');
                 location.reload(); // Ricarica la pagina per mostrare i dati aggiornati
             } else {
-                alert('Errore nell\'eliminazione dell\'adesione.');
+				response.text().then(text => alert('Errore nella modifica del post: ' + text));
             }
         });
     }

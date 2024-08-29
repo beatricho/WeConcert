@@ -1,4 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!-- pagina per la gestione di errori -->
+<%@ page errorPage="./errors/failure.jsp"%>
+
+<!-- accesso alla sessione -->
+<%@ page session="true"%>
+
+<!-- import di classi Java -->
+
+<%@ page import="java.util.*"%>
+<%@ page import="it.unibo.tw.web.beans.*"%>
+
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -13,14 +26,14 @@
             <img src="images/logo.png" alt="WeConcert Logo" class="logo">
         </header>
         <main>
-            <h2>Profilo di <%= ((Utente) application.getAttribute("utenteCorrente")).getNome() %> <%= ((Utente) application.getAttribute("utenteCorrente")).getCognome() %></h2>
+            <h2>Profilo Utente</h2>
 
             <!-- Visualizzazione dei Post Pubblicati -->
             <section class="section" id="post-pubblicati-section">
                 <h3>Post Pubblicati</h3>
                 <ul id="post-pubblicati">
                     <% 
-                        List<Post> postPubblicati = (List<Post>) application.getAttribute("postUtente");
+                        List<Post> postPubblicati = (List<Post>) application.getAttribute("postPubblicati");
                         if (postPubblicati != null && !postPubblicati.isEmpty()) {
                             for (Post post : postPubblicati) {
                     %>
@@ -40,7 +53,7 @@
 
             <!-- Visualizzazione dello Storico delle Recensioni -->
             <section class="section" id="storico-recensioni-section">
-                <h3>Storico Recensioni</h3>
+                <h3>Recensioni</h3>
                 <ul id="storico-recensioni">
                     <% 
                         List<Recensione> storicoRecensioni = (List<Recensione>) application.getAttribute("recensioni");
