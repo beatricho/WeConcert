@@ -13,7 +13,7 @@ public class EtaGruppo {
         return sogliaSuperiore;
     }
 
-    public void getSogliaSuperiore(int sogliaSuperiore){
+    public void setSogliaSuperiore(int sogliaSuperiore){
         this.sogliaSuperiore = sogliaSuperiore;
     }
 
@@ -21,7 +21,7 @@ public class EtaGruppo {
         return sogliaInferiore;
     }
 
-    public void getSogliaInferiore(int sogliaInferiore){
+    public void setSogliaInferiore(int sogliaInferiore){
         this.sogliaInferiore = sogliaInferiore;
     }
 }
