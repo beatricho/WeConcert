@@ -1,16 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<!-- pagina per la gestione di errori -->
 <%@ page errorPage="./errors/failure.jsp"%>
-
-<!-- accesso alla sessione -->
 <%@ page session="true"%>
-
-<!-- import di classi Java -->
-
 <%@ page import="java.util.*"%>
 <%@ page import="it.unibo.tw.web.beans.*"%>
-
 
 <!DOCTYPE html>
 <html lang="it">
@@ -28,7 +20,7 @@
         <main>
             <h2>Profilo Utente</h2>
 
-            <!-- Visualizzazione dei Post Pubblicati -->
+            <!-- Visualizzazione dei Post Pubblicati con Adesioni -->
             <section class="section" id="post-pubblicati-section">
                 <h3>Post Pubblicati</h3>
                 <ul id="post-pubblicati">
@@ -38,9 +30,42 @@
                             for (Post post : postPubblicati) {
                     %>
                                 <li class="post-item">
-                                    <span class="post-descrizione"><%= post.getDescrizione() %></span>
-                                    <button class="btn-modifica" onclick="modificaPost('<%= post.getId() %>')">Modifica</button>
-                                    <button class="btn-elimina" onclick="eliminaPost('<%= post.getId() %>')">Elimina</button>
+                                    <div class="post-info">
+                                        <div class="post-header">
+                                            <span class="post-descrizione"><%= post.getDescrizione() %></span>
+                                            <div class="post-buttons">
+                                                <button class="btn-modifica" onclick="modificaPost('<%= post.getId() %>')">Modifica</button>
+                                                <button class="btn-elimina-post" onclick="eliminaPost('<%= post.getId() %>')">Elimina</button>
+                                            </div>
+                                        </div>
+                                        <div class="post-dettagli">
+                                            <p><strong>Evento:</strong></p>
+                                            <p><strong>Disponibilità Mezzo:</strong> <%= post.getDisponibilitaMezzo() %></p>
+                                            <p><strong>Partecipanti Max:</strong> <%= post.getPartecipantiMax() %></p>
+                                            <p><strong>Età Gruppo:</strong> <%= post.getEtaGruppo().getSogliaInferiore() %> - <%= post.getEtaGruppo().getSogliaSuperiore() %> anni</p>
+                                            <p><strong>Genere Gruppo:</strong> <%= post.getGenereGruppo() %></p>
+                                        </div>
+
+                                        <!-- Adesioni degli utenti -->
+                                        <ul class="adesioni-list">
+                                            <h4>Adesioni:</h4>
+                                            <% 
+                                                List<Utente> adesioni = post.getUtentiAderenti();
+                                                if (adesioni != null && !adesioni.isEmpty()) {
+                                                    for (Utente adesione : adesioni) {
+                                            %>
+                                                        <li class="adesione-item">
+                                                            <span>• <%= adesione.getUsername() %></span>
+                                                            <button class="btn-elimina-adesione" onclick="eliminaAdesione('<%= post.getId() %>', '<%= adesione.getUsername() %>')">Elimina Adesione</button>
+                                                        </li>
+                                            <% 
+                                                    }
+                                                } else {
+                                            %>
+                                                <li>Nessuna adesione presente.</li>
+                                            <% } %>
+                                        </ul>
+                                    </div>
                                 </li>
                     <% 
                             }
@@ -60,38 +85,14 @@
                         if (storicoRecensioni != null && !storicoRecensioni.isEmpty()) {
                             for (Recensione rec : storicoRecensioni) {
                     %>
-                                <li class="recensione-item"><strong><%= rec.getValutazione() %>:</strong> <%= rec.getCommento() %></li>
+                                <li class="recensione-item">
+                                    <strong><%= rec.getValutazione() %>:</strong> <%= rec.getCommento() %>
+                                </li>
                     <% 
                             }
                         } else {
                     %>
                         <li>Nessuna recensione disponibile.</li>
-                    <% } %>
-                </ul>
-            </section>
-
-            <!-- Visualizzazione delle Adesioni degli Altri Utenti -->
-            <section class="section" id="adesioni-altri-utenti-section">
-                <h3>Adesioni di Altri Utenti</h3>
-                <ul id="adesioni-altri-utenti">
-                    <% 
-                        if (postPubblicati != null) {
-                            for (Post post : postPubblicati) {
-                                List<Utente> adesioni = post.getUtentiAderenti();
-                                if (adesioni != null && !adesioni.isEmpty()) {
-                                    for (Utente adesione : adesioni) {
-                    %>
-                                        <li class="adesione-item">
-                                            <span><%= adesione.getUsername() %> ha aderito al post "<%= post.getDescrizione() %>"</span>
-                                            <button class="btn-elimina" onclick="eliminaAdesione('<%= post.getId() %>', '<%= adesione.getUsername() %>')">Elimina Adesione</button>
-                                        </li>
-                    <% 
-                                    }
-                                }
-                            }
-                        } else {
-                    %>
-                        <li>Nessuna adesione disponibile.</li>
                     <% } %>
                 </ul>
             </section>

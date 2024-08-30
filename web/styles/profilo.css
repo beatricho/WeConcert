@@ -53,14 +53,57 @@ li:last-child {
     border-bottom: none;
 }
 
-.post-item, .recensione-item, .adesione-item {
+.post-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.post-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .post-descrizione {
     flex: 1;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.post-dettagli {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.post-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.adesioni-list {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.adesioni-list h4 {
+    margin: 5px 0;
+    font-weight: bold;
+    color: #0073e6;
+}
+
+.adesione-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
 button {
@@ -70,11 +113,18 @@ button {
     padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: 10px;
 }
 
 button:hover {
     background-color: #005bb5;
+}
+
+.btn-modifica, .btn-elimina-post {
+    background-color: #ffcc00; /* Giallo per i pulsanti di modifica e eliminazione dei post */
+}
+
+.btn-modifica:hover, .btn-elimina-post:hover {
+    background-color: #e6b800;
 }
 
 footer {

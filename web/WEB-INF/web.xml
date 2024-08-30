@@ -37,6 +37,15 @@
 	    <servlet-name>Profilo</servlet-name>
 	    <url-pattern>/profilo</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>Pubblica</servlet-name>
+        <servlet-class>it.unibo.tw.web.servlets.Pubblica</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Pubblica</servlet-name>
+	    <url-pattern>/pubblica</url-pattern>
+	</servlet-mapping>
 
     <welcome-file-list>
 		<welcome-file>login-reg.jsp</welcome-file>
