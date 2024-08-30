@@ -9,6 +9,7 @@ public class Evento {
     private LocalDate data;
     private LocalTime orario;
     private String luogo;
+    private String URLLocandina;
 
     public Evento() {
         this.id = "";
@@ -16,6 +17,7 @@ public class Evento {
         this.orario = null;
         this.luogo = "";
         this.descrizione="";
+        this.URLLocandina="";
     }
 
     public String getId() {
@@ -49,5 +51,11 @@ public class Evento {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+    public String getURLLocandina() {
+        return URLLocandina;
+    }
+    public void setURLLocandina(String url) {
+        this.URLLocandina = url;
     }
 }

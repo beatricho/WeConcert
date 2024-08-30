@@ -13,6 +13,7 @@ public class Post {
     private EtaGruppo etaGruppo;
     private DisponibilitaMezzo disponibilitaMezzo;
     private GenereGruppo genereGruppo;
+    private String citta;
 
     public Post(){
         this.id="";
@@ -24,6 +25,7 @@ public class Post {
         this.etaGruppo=null;
         this.disponibilitaMezzo=null;
         this.genereGruppo=null;
+        this.citta=null;
     }
 
     public String getId() {
@@ -80,6 +82,11 @@ public class Post {
     public void setGenereGruppo(GenereGruppo genereGruppo) {
         this.genereGruppo = genereGruppo;
     }
-
+    public String getCitta() {
+        return citta;
+    }
+    public void setCitta(String c) {
+        this.citta = c;
+    }
     
 }

@@ -11,7 +11,31 @@ public class Utente {
     private String password;
     private LocalDate nascita;
     private Genere genere;
-    private List<Post> postPubblicati;
+    public List<Post> getPostPubblicati() {
+		return postPubblicati;
+	}
+
+	public void setPostPubblicati(List<Post> postPubblicati) {
+		this.postPubblicati = postPubblicati;
+	}
+
+	public List<Post> getAdesioni() {
+		return adesioni;
+	}
+
+	public void setAdesioni(List<Post> adesioni) {
+		this.adesioni = adesioni;
+	}
+
+	public List<Recensione> getRecensioni() {
+		return recensioni;
+	}
+
+	public void setRecensioni(List<Recensione> recensioni) {
+		this.recensioni = recensioni;
+	}
+
+	private List<Post> postPubblicati;
     private List<Post> adesioni;         //rappresenta i post a cui l'utente ha aderito
     private List<Recensione> recensioni; //rappresenta le recensioni che l'utente riceve, non quelle che fa (questo perchè nel profilo si devono vedere le recensioni che l'utente ha ricevuto dagli altri utenti con cui ha partecipato a degli eventi)
 

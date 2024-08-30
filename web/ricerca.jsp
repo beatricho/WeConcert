@@ -12,27 +12,48 @@
 	<jsp:useBean id="utenteCorrente" class="it.unibo.tw.web.beans.Utente"
 		scope="session"></jsp:useBean>
 
+	<script>
+		function validateForm() {
+			// Ottieni il valore del campo di testo
+			var par = document.getElementById("ricercaString").value;
+			var tipo = document.getElementById("ricercaTipo").value;
+			// Controlla se il campo è vuoto
+			if (par.trim() === "" || tipo === null) {
+				// Mostra un alert
+				alert("Inserire un evento o un utente!");
+				return false; // Previene l'invio del form
+			}
+
+			return true; // Permette l'invio del form
+		}
+	</script>
+
 	<nav>
-        <div class="title"><h2 class="logo">Ricerca Post</h2></div>
+		<div class="title">
+			<h2 class="logo">Ricerca Post</h2>
+		</div>
 		<div class="container">
-			<form id="fileform" action="../Ricerca" method="post">
+			<form id="fileform" action="../Ricerca" method="post"
+				onsubmit="return validateForm()">
 
 				<div class="search-bar">
 					<i class="uil uil-search"></i> <input id="ricercaString"
-						name="ricercaString" type="text" placeholder="Ricerca post" /> <br>
+						name="ricercaString" type="text"
+						placeholder="Ricerca post: inserire il nome di un utente o di un artista" />
+					<br>
 				</div>
 				<div class="radio-buttons">
-					<input name="ricercaTipo" type="radio"
-						value="utente"> Utente <br> <input
-						name="ricercaTipo" type="radio" value="evento"> Evento
+					<input id="ricercaTipo" name="ricercaTipo" type="radio"
+						value="utente"> Utente <br> <input name="ricercaTipo"
+						type="radio" value="evento"> Evento
 				</div>
 
 				<div class="filters">
 					<!-- Filtro per genere del gruppo -->
 					<fieldset>
-						<b><legend>Genere del gruppo</legend></b>
-						<label> <input type="checkbox" name="genereGruppo"
-							value="femminile"> Femminile
+						<b><legend>Genere del gruppo</legend></b> <label> <input
+							type="checkbox" name="genereGruppo" value="femminile">
+							Femminile
 						</label> <br> <label> <input type="checkbox"
 							name="genereGruppo" value="maschile"> Maschile
 						</label> <br> <label> <input type="checkbox"
@@ -42,9 +63,8 @@
 
 					<!-- Filtro per disponibilità del mezzo -->
 					<fieldset>
-						<b><legend>Disponibilità del mezzo</legend></b>
-						<label> <input type="checkbox" name="disponibilitaMezzo"
-							value="ho"> Ho
+						<b><legend>Disponibilità del mezzo</legend></b> <label> <input
+							type="checkbox" name="disponibilitaMezzo" value="ho"> Ho
 						</label> <br> <label> <input type="checkbox"
 							name="disponibilitaMezzo" value="nonHoCerco"> Non ho e
 							cerco
@@ -56,22 +76,20 @@
 
 					<!-- Filtro per città di provenienza -->
 					<fieldset>
-						<b><legend>Città</legend></b>
-						<label for="citta"> Città di provenienza: <input
-							type="text" id="citta" name="citta"
+						<b><legend>Città</legend></b> <label for="citta"> Città di
+							provenienza: <input type="text" id="citta" name="citta"
 							placeholder="Inserisci la città">
 						</label>
 					</fieldset>
 
 					<!-- Filtri per età minima e massima -->
 					<fieldset>
-						<b><legend>Età</legend></b>
-						<label for="etaMinima"> Età minima: <input type="text"
-							id="etaMinima" name="etaMinima"
-							placeholder="Inserisci l'età minima">
+						<b><legend>Età</legend></b> <label for="etaMinima"> Età
+							minima: <input type="text" id="etaMinima" name="etaMinima"
+							placeholder="Inserisci l'età minima" value="0">
 						</label> <br> <label for="etaMassima"> Età massima: <input
 							type="text" id="etaMassima" name="etaMassima"
-							placeholder="Inserisci l'età massima">
+							placeholder="Inserisci l'età massima" value="100">
 						</label>
 					</fieldset>
 
@@ -107,7 +125,33 @@
 			<div class="middle">
 				<div class="feeds">
 					<div class="feed">
-						<div class="head"></div>
+						<div class="head">
+							<%
+							Integer err = (Integer) session.getAttribute("err");
+							if (err != null) {
+								switch (err) {
+								case 0: {
+							%>
+							<br> qua va messo tutto wiiiiii<br>
+							<br>
+							<%
+							}
+							break;
+
+							case 1: {
+							%>
+							<br> La ricerca non ha prodotto risultati... <br> <br>
+							Riprova! <br> <br>
+							<%
+							}
+							break;
+
+							}
+							}
+
+							session.removeAttribute("err");
+							%>
+						</div>
 						<div class="user">
 							<div class="profile-pic">
 								<img src="mascetti.jpg" alt="" />
