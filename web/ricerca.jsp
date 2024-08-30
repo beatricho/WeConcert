@@ -17,7 +17,7 @@
 			// Ottieni il valore del campo di testo
 			var par = document.getElementById("ricercaString").value;
 			var tipo = document.getElementById("ricercaTipo").value;
-			// Controlla se il campo è vuoto
+			// Controlla se il campo Ã¨ vuoto
 			if (par.trim() === "" || tipo === null) {
 				// Mostra un alert
 				alert("Inserire un evento o un utente!");
@@ -33,7 +33,7 @@
 			<h2 class="logo">Ricerca Post</h2>
 		</div>
 		<div class="container">
-			<form id="fileform" action="../Ricerca" method="post"
+			<form id="fileform" action="<%=request.getContextPath()%>/ricerca" method="post"
 				onsubmit="return validateForm()">
 
 				<div class="search-bar">
@@ -61,9 +61,9 @@
 						</label>
 					</fieldset>
 
-					<!-- Filtro per disponibilità del mezzo -->
+					<!-- Filtro per disponibilitÃ  del mezzo -->
 					<fieldset>
-						<b><legend>Disponibilità del mezzo</legend></b> <label> <input
+						<b><legend>DisponibilitÃ  del mezzo</legend></b> <label> <input
 							type="checkbox" name="disponibilitaMezzo" value="ho"> Ho
 						</label> <br> <label> <input type="checkbox"
 							name="disponibilitaMezzo" value="nonHoCerco"> Non ho e
@@ -74,22 +74,22 @@
 						</label>
 					</fieldset>
 
-					<!-- Filtro per città di provenienza -->
+					<!-- Filtro per cittÃ  di provenienza -->
 					<fieldset>
-						<b><legend>Città</legend></b> <label for="citta"> Città di
+						<b><legend>CittÃ </legend></b> <label for="citta"> CittÃ  di
 							provenienza: <input type="text" id="citta" name="citta"
-							placeholder="Inserisci la città">
+							placeholder="Inserisci la cittÃ ">
 						</label>
 					</fieldset>
 
-					<!-- Filtri per età minima e massima -->
+					<!-- Filtri per etÃ  minima e massima -->
 					<fieldset>
-						<b><legend>Età</legend></b> <label for="etaMinima"> Età
+						<b><legend>EtÃ </legend></b> <label for="etaMinima"> EtÃ 
 							minima: <input type="text" id="etaMinima" name="etaMinima"
-							placeholder="Inserisci l'età minima" value="0">
-						</label> <br> <label for="etaMassima"> Età massima: <input
+							placeholder="Inserisci l'etÃ  minima" value="0">
+						</label> <br> <label for="etaMassima"> EtÃ  massima: <input
 							type="text" id="etaMassima" name="etaMassima"
-							placeholder="Inserisci l'età massima" value="100">
+							placeholder="Inserisci l'etÃ  massima" value="100">
 						</label>
 					</fieldset>
 
@@ -208,7 +208,7 @@
 							<span><img
 								src="https://www.svgrepo.com/show/519245/simple-calendar.svg" /></span>
 							<p>
-								<b>EtÃ </b>: 18-99
+								<b>EtÃÂ </b>: 18-99
 							</p>
 						</div>
 
@@ -216,7 +216,7 @@
 							<span><img
 								src="https://png.pngtree.com/png-vector/20191021/ourmid/pngtree-vector-location-icon-png-image_1834331.jpg" /></span>
 							<p>
-								<b>CittÃ  di provenienza</b>: Firenze
+								<b>CittÃÂ  di provenienza</b>: Firenze
 							</p>
 						</div>
 
@@ -224,7 +224,7 @@
 							<p>
 								<b>Conte Raffaello Mascetti</b> dice: Antani, blinda la
 								supercazzola prematurata con doppio scappellamento a destra? Il
-								Melandri Ã¨ sparito, quindi cerchiamo un sostituto...
+								Melandri ÃÂ¨ sparito, quindi cerchiamo un sostituto...
 							</p>
 						</div>
 						<div class="adesione">

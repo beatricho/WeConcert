@@ -47,6 +47,15 @@
 	    <url-pattern>/pubblica</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+	    <servlet-name>Ricerca</servlet-name>
+        <servlet-class>it.unibo.tw.web.servlets.Ricerca</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Ricerca</servlet-name>
+	    <url-pattern>/ricerca</url-pattern>
+	</servlet-mapping>
+
     <welcome-file-list>
 		<welcome-file>login-reg.jsp</welcome-file>
 	</welcome-file-list>
