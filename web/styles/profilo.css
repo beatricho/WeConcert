@@ -127,6 +127,16 @@ button:hover {
     background-color: #e6b800;
 }
 
+
+.post-locandina {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* Limita l'altezza massima per mantenere le proporzioni */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
 footer {
     text-align: center;
     padding: 20px 0;

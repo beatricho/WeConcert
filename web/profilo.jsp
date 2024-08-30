@@ -2,6 +2,7 @@
 <%@ page errorPage="./errors/failure.jsp"%>
 <%@ page session="true"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.time.*"%>
 <%@ page import="it.unibo.tw.web.beans.*"%>
 
 <!DOCTYPE html>
@@ -28,9 +29,22 @@
                         List<Post> postPubblicati = (List<Post>) application.getAttribute("postPubblicati");
                         if (postPubblicati != null && !postPubblicati.isEmpty()) {
                             for (Post post : postPubblicati) {
+                                Evento eventoRelativo = post.getEvento();
+                                String URLLocandina = "";
+                                LocalDate data = null;
+                                LocalTime orario = null;
+                                String luogo = "";
+                                if(eventoRelativo != null){   
+                                    URLLocandina = eventoRelativo.getURLLocandina();
+                                    data = eventoRelativo.getData();
+                                    orario = eventoRelativo.getOrario();
+                                    luogo = eventoRelativo.getLuogo();
+                                }
                     %>
                                 <li class="post-item">
                                     <div class="post-info">
+                                        <!-- Immagine della Locandina dell'Evento -->
+                                        <img src= "<%= URLLocandina %>" alt="Locandina Evento" class="post-locandina">
                                         <div class="post-header">
                                             <span class="post-descrizione"><%= post.getDescrizione() %></span>
                                             <div class="post-buttons">
@@ -39,7 +53,7 @@
                                             </div>
                                         </div>
                                         <div class="post-dettagli">
-                                            <p><strong>Evento:</strong></p>
+                                            <p><strong>Evento:</strong><%= data %> - <%= orario %> @ <%= luogo %></p>
                                             <p><strong>Disponibilità Mezzo:</strong> <%= post.getDisponibilitaMezzo() %></p>
                                             <p><strong>Partecipanti Max:</strong> <%= post.getPartecipantiMax() %></p>
                                             <p><strong>Età Gruppo:</strong> <%= post.getEtaGruppo().getSogliaInferiore() %> - <%= post.getEtaGruppo().getSogliaSuperiore() %> anni</p>
