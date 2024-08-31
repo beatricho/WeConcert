@@ -52,3 +52,21 @@ function eliminaAdesione(postId, username) {
         });
     }
 }
+
+// Funzione per aggiungere un'adesione
+function inserisciAdesione(postId, username) {
+    if (confirm(`Sei sicuro di voler aderire al post?`)) {
+        fetch('profilo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ action: 'inserisciAdesione', postId: postId, username: username })
+        }).then(response => {
+            if (response.ok) {
+                alert('Adesione aggiunta con successo!');
+                location.reload(); // Ricarica la pagina per mostrare i dati aggiornati
+            } else {
+				response.text().then(text => alert("Errore nell'inserimento dell'adesione:" + text));
+            }
+        });
+    }
+}

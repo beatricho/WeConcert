@@ -1,12 +1,9 @@
 package it.unibo.tw.web.servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.unibo.tw.web.beans.DisponibilitaMezzo;
-import it.unibo.tw.web.beans.Evento;
-import it.unibo.tw.web.beans.Genere;
 import it.unibo.tw.web.beans.GenereGruppo;
 import it.unibo.tw.web.beans.Post;
 import it.unibo.tw.web.beans.Utente;
@@ -28,65 +23,78 @@ public class Ricerca extends HttpServlet {
 		GenereGruppo genere = GenereGruppo.valueOf(request.getParameter("genereGruppo"));
 		DisponibilitaMezzo disp = DisponibilitaMezzo.valueOf(request.getParameter("disponibilitaMezzo"));
 		String citta = request.getParameter("citta");
-		int etaMin = Integer.valueOf(request.getParameter("etaMinima"));
-		int etaMax = Integer.valueOf(request.getParameter("etaMassima"));
-        HttpSession sessione = request.getSession();
+		HttpSession sessione = request.getSession();
 
 		List<Post> risultato = new ArrayList<>();
 		List<Utente> utenti = (List<Utente>) this.getServletContext().getAttribute("utenti");
-
-		if (tipo.equals("Utente")) {
-			for (Utente u : utenti) {
-				if (u.getUsername().equals(ricerca)) {
-					risultato = u.getPostPubblicati();
-					break;
+		List<Post> pubblicati = (List<Post>) this.getServletContext().getAttribute("postPubblicati");
+		if (tipo != null) {
+			if (tipo.equals("Utente")) {
+				for (Utente u : utenti) {
+					if (u.getUsername().equals(ricerca)) {
+						risultato = u.getPostPubblicati();
+						break;
+					}
 				}
-			}
-		} else {
-			for (Utente u : utenti) {
-				for (Post p : u.getPostPubblicati()) {
+			} else {
+				for (Post p : pubblicati) {
 					if (p.getEvento().getDescrizione().contains(ricerca)) {
 						risultato.add(p);
 					}
 				}
 			}
-		}
 
-		if (risultato.isEmpty()) {
-			sessione.setAttribute("err", 1);
+			if (risultato.isEmpty()) {
+				sessione.setAttribute("err", 1);
+			} else {
+
+				if (genere != null) {
+					for (Post p : risultato) {
+						if (p.getGenereGruppo() != genere) {
+							risultato.remove(p);
+						}
+					}
+				}
+
+				if (request.getParameter("etaMinima") != "") {
+					int etaMin = Integer.valueOf(request.getParameter("etaMinima"));
+					for (Post p : risultato) {
+						if (p.getEtaGruppo().getSogliaInferiore() < etaMin) {
+							risultato.remove(p);
+						}
+					}
+				}
+
+				if (request.getParameter("etaMassima") != "") {
+					int etaMax = Integer.valueOf(request.getParameter("etaMassima"));
+					for (Post p : risultato) {
+						if (p.getEtaGruppo().getSogliaSuperiore() > etaMax) {
+							risultato.remove(p);
+						}
+					}
+				}
+
+				if (citta != "") {
+					for (Post p : risultato) {
+						if (p.getCitta()!=citta) {
+							risultato.remove(p);
+						}
+					}
+				}
+
+				if (disp != null) {
+					for (Post p : risultato) {
+						if (p.getDisponibilitaMezzo() != disp) {
+							risultato.remove(p);
+						}
+					}
+				}
+
+				sessione.setAttribute("err", 0);
+				sessione.setAttribute("risultatoRicerca", risultato);
+			}
 		} else {
-
-			if (genere != null) {
-				for (Post p : risultato) {
-					if (p.getGenereGruppo() != genere) {
-						risultato.remove(p);
-					}
-				}
-			}
-
-			if (etaMin != 0 || etaMax != 100) {
-				for (Post p : risultato) {
-					if (p.getEtaGruppo().getSogliaInferiore() < etaMin
-							|| p.getEtaGruppo().getSogliaSuperiore() > etaMax) {
-						risultato.remove(p);
-					}
-				}
-			}
-
-			if (citta != "") {
-
-			}
-
-			if (disp != null) {
-				for (Post p : risultato) {
-					if (p.getDisponibilitaMezzo() != disp) {
-						risultato.remove(p);
-					}
-				}
-			}
-			
-			sessione.setAttribute("err", 0);
-			sessione.setAttribute("risultatoRicerca", risultato);
+			sessione.setAttribute("err", 2);
 		}
 
 		response.sendRedirect("ricerca.jsp");

@@ -4,13 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feed Ricerca</title>
+<link rel="stylesheet" href="styles/profilo.css">
 <link rel="stylesheet" href="styles/post.css">
+
 </head>
 
 <body>
 
-	<jsp:useBean id="utenteCorrente" class="it.unibo.tw.web.beans.Utente"
-		scope="session"></jsp:useBean>
+	<jsp:usebean id="utenteCorrente" class="it.unibo.tw.web.beans.Utente"
+		scope="session"></jsp:usebean>
+	<jsp:usebean id="risultatoRicerca" class="java.util.List"
+		scope="session"></jsp:usebean>
 
 	<script>
 		function validateForm() {
@@ -33,76 +37,7 @@
 			<h2 class="logo">Ricerca Post</h2>
 		</div>
 		<div class="container">
-			<form id="fileform" action="<%=request.getContextPath()%>/ricerca" method="post"
-				onsubmit="return validateForm()">
-
-				<div class="search-bar">
-					<i class="uil uil-search"></i> <input id="ricercaString"
-						name="ricercaString" type="text"
-						placeholder="Ricerca post: inserire il nome di un utente o di un artista" />
-					<br>
-				</div>
-				<div class="radio-buttons">
-					<input id="ricercaTipo" name="ricercaTipo" type="radio"
-						value="utente"> Utente <br> <input name="ricercaTipo"
-						type="radio" value="evento"> Evento
-				</div>
-
-				<div class="filters">
-					<!-- Filtro per genere del gruppo -->
-					<fieldset>
-						<b><legend>Genere del gruppo</legend></b> <label> <input
-							type="checkbox" name="genereGruppo" value="femminile">
-							Femminile
-						</label> <br> <label> <input type="checkbox"
-							name="genereGruppo" value="maschile"> Maschile
-						</label> <br> <label> <input type="checkbox"
-							name="genereGruppo" value="misto"> Misto
-						</label>
-					</fieldset>
-
-					<!-- Filtro per disponibilitÃ  del mezzo -->
-					<fieldset>
-						<b><legend>DisponibilitÃ  del mezzo</legend></b> <label> <input
-							type="checkbox" name="disponibilitaMezzo" value="ho"> Ho
-						</label> <br> <label> <input type="checkbox"
-							name="disponibilitaMezzo" value="nonHoCerco"> Non ho e
-							cerco
-						</label> <br> <label> <input type="checkbox"
-							name="disponibilitaMezzo" value="nonHoNonCerco"> Non ho e
-							non cerco
-						</label>
-					</fieldset>
-
-					<!-- Filtro per cittÃ  di provenienza -->
-					<fieldset>
-						<b><legend>CittÃ </legend></b> <label for="citta"> CittÃ  di
-							provenienza: <input type="text" id="citta" name="citta"
-							placeholder="Inserisci la cittÃ ">
-						</label>
-					</fieldset>
-
-					<!-- Filtri per etÃ  minima e massima -->
-					<fieldset>
-						<b><legend>EtÃ </legend></b> <label for="etaMinima"> EtÃ 
-							minima: <input type="text" id="etaMinima" name="etaMinima"
-							placeholder="Inserisci l'etÃ  minima" value="0">
-						</label> <br> <label for="etaMassima"> EtÃ  massima: <input
-							type="text" id="etaMassima" name="etaMassima"
-							placeholder="Inserisci l'etÃ  massima" value="100">
-						</label>
-					</fieldset>
-
-					<!-- Bottone per inviare il form -->
-					<button type="submit">Cerca</button>
-				</div>
-			</form>
-		</div>
-	</nav>
-
-	<main class="main">
-		<div class="container">
-			<div class="left">
+			<div class="top">
 				<a class="profile">
 					<div class="profile-pic">
 						<img src="marcopisellonio.jpg" />
@@ -121,121 +56,186 @@
 					</a>
 				</div>
 			</div>
+			<form id="fileform" action="<%=request.getContextPath()%>/ricerca"
+				method="post" onsubmit="return validateForm()">
+
+				<div class="search-container"> <input id="ricercaString"
+						name="ricercaString" type="text" class="search-input"
+						placeholder="Inserire il nome di un utente o di un artista" />
+					<br>
+					<!-- Bottone per inviare il form -->
+					<button class="search-button" type="submit">Cerca</button>
+				</div>
+
+				<div class="filters">
+					<!-- Filtro per la ricerca -->
+					<fieldset>
+						<b><legend>Tipo di ricerca</legend></b> <label> <input id="ricercaTipo"
+							type="radio" name="ricercaTipo" value="utente">
+							Utente
+						</label> <br> <label> <input id="ricercaTipo"
+							type="radio" name="ricercaTipo" value="evento">
+							Evento
+						</label>
+					</fieldset>
+
+					<!-- Filtro per genere del gruppo -->
+					<fieldset>
+						<b><legend>Genere del gruppo</legend></b> <label> <input
+							type="checkbox" name="genereGruppo" value="femminile">
+							Femminile
+						</label> <br> <label> <input type="checkbox"
+							name="genereGruppo" value="maschile"> Maschile
+						</label> <br> <label> <input type="checkbox"
+							name="genereGruppo" value="misto"> Misto
+						</label>
+					</fieldset>
+
+					<!-- Filtro per disponibilitÃ  del mezzo -->
+					<fieldset>
+						<b><legend>Disponibilità del mezzo</legend></b> <label> <input
+							type="checkbox" name="disponibilitaMezzo" value="ho"> Ho
+						</label> <br> <label> <input type="checkbox"
+							name="disponibilitaMezzo" value="nonHoCerco"> Non ho e
+							cerco
+						</label> <br> <label> <input type="checkbox"
+							name="disponibilitaMezzo" value="nonHoNonCerco"> Non ho e
+							non cerco
+						</label>
+					</fieldset>
+
+					<!-- Filtro per cittÃ  di provenienza -->
+					<fieldset>
+						<b><legend>Città </legend></b> <label for="citta"> Città
+							di provenienza: <input type="text" id="citta" name="citta"
+							placeholder="Inserisci la città">
+						</label>
+					</fieldset>
+
+					<!-- Filtri per etÃ  minima e massima -->
+					<fieldset>
+						<b><legend>Età </legend></b> <label for="etaMinima"> Età
+							minima: <input type="text" id="etaMinima" name="etaMinima"
+							placeholder="Inserisci l'età minima">
+						</label> <br> <label for="etaMassima"> Età massima: <input
+							type="text" id="etaMassima" name="etaMassima"
+							placeholder="Inserisci l'età massima">
+						</label>
+					</fieldset>
+
+				</div>
+			</form>
+		</div>
+	</nav>
+
+	<main class="main">
+		<div class="container">
 
 			<div class="middle">
-				<div class="feeds">
-					<div class="feed">
-						<div class="head">
-							<%
-							Integer err = (Integer) session.getAttribute("err");
-							if (err != null) {
-								switch (err) {
-								case 0: {
-							%>
-							<br> qua va messo tutto wiiiiii<br>
-							<br>
+				<div class="feed">
+					<%
+					Integer err = (Integer) session.getAttribute("err");
+					if (err != null) {
+						if (err == 0) {
+							for (Object obj : risultatoRicerca) {
+						Post post = (Post) obj;
+						Evento eventoRelativo = post.getEvento();
+						String URLLocandina = "";
+						LocalDate data = null;
+						LocalTime orario = null;
+						String luogo = "";
+						if (eventoRelativo != null) {
+							URLLocandina = eventoRelativo.getURLLocandina();
+							data = eventoRelativo.getData();
+							orario = eventoRelativo.getOrario();
+							luogo = eventoRelativo.getLuogo();
+						}
+					%>
+					<li class="post-item">
+						<div class="post-info">
+							<!-- Immagine della Locandina dell'Evento -->
+							<img src="<%=URLLocandina%>" alt="Locandina Evento"
+								class="post-locandina">
+							<div class="post-header">
+								<span class="post-descrizione"><%=post.getDescrizione()%></span>
+								<div class="post-buttons"></div>
+							</div>
+							<div class="post-dettagli">
+								<p>
+									<strong>Evento:</strong><%=data%>
+									-
+									<%=orario%>
+									@
+									<%=luogo%></p>
+								<p>
+									<strong>Disponibilità Mezzo:</strong>
+									<%=post.getDisponibilitaMezzo()%></p>
+								<p>
+									<strong>Partecipanti Max:</strong>
+									<%=post.getPartecipantiMax()%></p>
+								<p>
+									<strong>Età Gruppo:</strong>
+									<%=post.getEtaGruppo().getSogliaInferiore()%>
+									-
+									<%=post.getEtaGruppo().getSogliaSuperiore()%>
+									anni
+								</p>
+								<p>
+									<strong>Genere Gruppo:</strong>
+									<%=post.getGenereGruppo()%></p>
+							</div>
+
+							<!-- Adesioni degli utenti -->
+							<div class="adesioni">
+								<%
+								if (post.getUtentiAderenti.size() != post.getPartecipantiMax) {
+								%>
+								<button class="btn-inserisci-adesione"
+									onclick="inserisciAdesione('<%=post.getId()%>', '<%=utenteCorrente.getUsername()%>')">
+									Aderisci!</button>
+								<%
+								}
+								%>
+								<ul class="adesioni-list">
+									<h4>Adesioni:</h4>
+									<%
+									List<Utente> adesioni = post.getUtentiAderenti();
+									if (adesioni != null && !adesioni.isEmpty()) {
+										for (Utente adesione : adesioni) {
+									%>
+									<li class="adesione-item"><span> <%=adesione.getUsername()%></span>
+									</li>
+									<%
+									}
+									} else {
+									%>
+									<li>Nessuna adesione presente.</li>
+									<%
+									}
+									%>
+								</ul>
+							</div>
 							<%
 							}
-							break;
-
-							case 1: {
+							} else if (err == 1){
 							%>
 							<br> La ricerca non ha prodotto risultati... <br> <br>
 							Riprova! <br> <br>
 							<%
-							}
-							break;
-
-							}
+							} else if (err == 2) {
+								%>
+							<br> Inserire il tipo di ricerca! <br> <br>
+							<%
 							}
 
 							session.removeAttribute("err");
+							}
 							%>
 						</div>
-						<div class="user">
-							<div class="profile-pic">
-								<img src="mascetti.jpg" alt="" />
-							</div>
-							<div class="info">
-								<h3>Conte Raffaello Mascetti</h3>
-								<p class="text-muted">@mascetti</p>
-							</div>
-							<span class="edit"><i class="uil uil-ellipsis-h"></i></span>
-						</div>
-
-						<div class="photo">
-							<img
-								src="https://www.valmivola.com/wp-content/uploads/2024/06/Pooh.jpg"
-								alt="" />
-						</div>
-
-						<div class="action-button">
-							<div class="interaction-button">
-								<span><i class="uil uil-thumbs-up"></i></span> <span><i
-									class="uil uil-comment"></i></span> <span><i
-									class="uil uil-share"></i></span>
-							</div>
-							<div class="bookmark">
-								<span><i class="uil uil-bookmark"></i></span>
-							</div>
-						</div>
-
-						<div class="liked-by">
-							<span><img src="sassaroli.jpg" /></span> <span><img
-								src="perozzi.jpg" /></span> <span><img src="necchi.jpg" /></span>
-							<p>
-								Partecipano <b>Professor Sassaroli </b>e <b>altri 3</b>
-							</p>
-						</div>
-
-						<div class="genere">
-							<span><img
-								src="https://upload.wikimedia.org/wikipedia/commons/5/59/Gender-Symbol_Hermaprodite_Both_dark_transparent_Background.png" /></span>
-							<p>
-								<b>Genere</b>: misto
-							</p>
-						</div>
-
-						<div class="mezzo">
-							<span><img
-								src="https://thumb.ac-illust.com/1e/1e3da4279e0083f304673b10804c7cc7_t.jpeg" /></span>
-							<p>
-								<b>Mezzo</b>: ho
-							</p>
-						</div>
-
-						<div class="eta">
-							<span><img
-								src="https://www.svgrepo.com/show/519245/simple-calendar.svg" /></span>
-							<p>
-								<b>EtÃÂ </b>: 18-99
-							</p>
-						</div>
-
-						<div class="citta">
-							<span><img
-								src="https://png.pngtree.com/png-vector/20191021/ourmid/pngtree-vector-location-icon-png-image_1834331.jpg" /></span>
-							<p>
-								<b>CittÃÂ  di provenienza</b>: Firenze
-							</p>
-						</div>
-
-						<div class="caption">
-							<p>
-								<b>Conte Raffaello Mascetti</b> dice: Antani, blinda la
-								supercazzola prematurata con doppio scappellamento a destra? Il
-								Melandri ÃÂ¨ sparito, quindi cerchiamo un sostituto...
-							</p>
-						</div>
-						<div class="adesione">
-							<p>
-								<b>Manca un'altra persona:</b>
-							</p>
-							<label class="btn btn-primary" for="adesione">Aderisci!</label>
-						</div>
-					</div>
 				</div>
 			</div>
+		</div>
+		</div>
 		</div>
 </body>
 </main>

@@ -119,11 +119,16 @@ button:hover {
     background-color: #005bb5;
 }
 
-.btn-modifica, .btn-elimina-post {
-    background-color: #ffcc00; /* Giallo per i pulsanti di modifica e eliminazione dei post */
+.btn-modifica,
+.btn-elimina-post,
+.btn-inserisci-adesione {
+    background-color: #ffcc00;
+    /* Giallo per i pulsanti di modifica e eliminazione dei post */
 }
 
-.btn-modifica:hover, .btn-elimina-post:hover {
+.btn-modifica:hover,
+.btn-elimina-post:hover,
+.btn-inserisci-adesione:hover {
     background-color: #e6b800;
 }
 
@@ -131,10 +136,17 @@ button:hover {
 .post-locandina {
     width: 100%;
     height: auto;
-    max-height: 200px; /* Limita l'altezza massima per mantenere le proporzioni */
+    max-height: 200px;
+    /* Limita l'altezza massima per mantenere le proporzioni */
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
+}
+
+div.filters {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
 }
 
 footer {

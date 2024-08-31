@@ -20,7 +20,7 @@ import it.unibo.tw.web.beans.Valutazione;
 import it.unibo.tw.web.beans.Recensione;
 
 public class Profilo extends HttpServlet {
-    
+
     @Override
     public void init(ServletConfig conf) throws ServletException {
         super.init(conf);
@@ -37,15 +37,18 @@ public class Profilo extends HttpServlet {
         // Inizializzazione dei post dell'utente se non presenti
         if (this.getServletContext().getAttribute("postPubblicati") == null) {
             List<Post> postPubblicati = new ArrayList<Post>();
-            
+
             // Creazione del primo post
-            /* List<Evento> eventi = (List<Evento>) this.getServletContext().getAttribute("eventi"); */
+            /*
+             * List<Evento> eventi = (List<Evento>)
+             * this.getServletContext().getAttribute("eventi");
+             */
             EtaGruppo eta = new EtaGruppo();
             eta.setSogliaInferiore(25);
             eta.setSogliaSuperiore(40);
 
             Utente utenteAderente = new Utente();
-            
+
             Post post = new Post();
             post.setId("post-1");
             /* post.setEvento(eventi.get(0)); */
@@ -55,16 +58,15 @@ public class Profilo extends HttpServlet {
             post.setEtaGruppo(eta);
             post.setGenereGruppo(GenereGruppo.MISTO);
             post.setPartecipantiMax(10);
-            
+
             // Creazione di adesioni al primo post
             utenteAderente.setUsername("the_real_Filippo");
             post.setUtentiAderenti(utenteAderente);
             utenteAderente = new Utente();
             utenteAderente.setUsername("Michela89");
             post.setUtentiAderenti(utenteAderente);
-                        
+
             postPubblicati.add(post);
-            
 
             // Secondo post
             post = new Post();
@@ -93,28 +95,27 @@ public class Profilo extends HttpServlet {
             utenteAderente = new Utente();
             utenteAderente.setUsername("gue");
             post.setUtentiAderenti(utenteAderente);
-                        
+
             postPubblicati.add(post);
 
             this.getServletContext().setAttribute("postPubblicati", postPubblicati);
         }
-      
 
         // Creazione di recensioni fittizie fatte all'utente corrente
-        if(this.getServletContext().getAttribute("recensioni") == null){
+        if (this.getServletContext().getAttribute("recensioni") == null) {
             List<Recensione> recensioni = new ArrayList<Recensione>();
             Recensione recensione = new Recensione();
             recensione.setId("rec1");
             recensione.setValutazione(Valutazione.ECCELLENTE);
             recensione.setCommento("Compagno favoloso!!");
             recensioni.add(recensione);
-            
+
             recensione = new Recensione();
             recensione.setId("rec2");
             recensione.setValutazione(Valutazione.BUONO);
             recensione.setCommento("Tutto apposto");
             recensioni.add(recensione);
-            
+
             recensione = new Recensione();
             recensione.setId("rec3");
             recensione.setValutazione(Valutazione.PESSIMO);
@@ -124,16 +125,17 @@ public class Profilo extends HttpServlet {
         }
     }
 
-    
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         // Log di controllo per assicurare che GET funzioni
         System.out.println("GET request ricevuta in Profilo.");
         getServletContext().getRequestDispatcher("/profilo.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         String action = request.getParameter("action");
         List<Post> postPubblicati = (List<Post>) this.getServletContext().getAttribute("postPubblicati");
 
@@ -148,20 +150,20 @@ public class Profilo extends HttpServlet {
                 }
             }
         }
-        
+
         else if ("eliminaPost".equals(action)) {
             String postId = request.getParameter("postId");
             postPubblicati.removeIf(post -> post.getId().equals(postId)); // Rimuovi il post con l'id specificato
         }
-        
-        else if ("eliminaAdesione".equals(action)){
+
+        else if ("eliminaAdesione".equals(action)) {
             String postId = request.getParameter("postId");
             String username = request.getParameter("username");
             for (Post post : postPubblicati) {
                 if (post.getId().equals(postId)) {
                     List<Utente> utentiAderenti = post.getUtentiAderenti();
-                    for(Utente adesione : utentiAderenti){
-                        if(adesione.getUsername().equals(username)){
+                    for (Utente adesione : utentiAderenti) {
+                        if (adesione.getUsername().equals(username)) {
                             utentiAderenti.remove(adesione);
                             break;
                         }
@@ -170,7 +172,27 @@ public class Profilo extends HttpServlet {
                 }
             }
         }
+
+        else if ("inserisciAdesione".equals(action)) {
+            String postId = request.getParameter("postId");
+            String username = request.getParameter("username");
+            for (Post post : postPubblicati) {
+                if (post.getId().equals(postId)) {
+                    List<Utente> utentiAderenti = post.getUtentiAderenti();
+                    List<Utente> utenti = (List<Utente>) this.getServletContext().getAttribute("utenti");
+                    for (Utente u : utenti) {
+                        if (u.getUsername().equals(username)) {
+                            utentiAderenti.add(u);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            response.sendRedirect("ricerca.jsp");
+        }
+
         this.getServletContext().setAttribute("postPubblicati", postPubblicati);
-        response.sendRedirect("profilo.jsp");        
+        response.sendRedirect("profilo.jsp");
     }
 }
