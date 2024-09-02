@@ -1,0 +1,82 @@
+/* Resetta margini e padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+/* Stile del contenitore della barra di ricerca */
+.search-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto; /* Centra la barra di ricerca orizzontalmente */
+    display: flex;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile dell'input della barra di ricerca */
+.search-input {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Stile del pulsante di ricerca */
+.search-button {
+    background-color: #ffcc00;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #e6b800;
+}
+
+/* Stile dei filtri di ricerca */
+.filters {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto; /* Centra i filtri orizzontalmente */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #005bb523; /* Aggiunge uno sfondo leggermente colorato */
+}
+
+.filters fieldset {
+    border: none; /* Rimuove il bordo del fieldset */
+    margin-bottom: 20px; /* Aggiunge spazio tra i gruppi di filtri */
+}
+
+.filters legend {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: inline-block; /* Fa in modo che il margine venga applicato */
+}
+
+.filters label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.filters input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}

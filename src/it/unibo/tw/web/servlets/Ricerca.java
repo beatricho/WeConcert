@@ -27,7 +27,6 @@ public class Ricerca extends HttpServlet {
 
 		List<Post> risultato = new ArrayList<>();
 		List<Utente> utenti = (List<Utente>) this.getServletContext().getAttribute("utenti");
-		List<Post> pubblicati = (List<Post>) this.getServletContext().getAttribute("postPubblicati");
 		if (tipo != null) {
 			if (tipo.equals("Utente")) {
 				for (Utente u : utenti) {
@@ -37,9 +36,12 @@ public class Ricerca extends HttpServlet {
 					}
 				}
 			} else {
-				for (Post p : pubblicati) {
-					if (p.getEvento().getDescrizione().contains(ricerca)) {
-						risultato.add(p);
+				for (Utente u : utenti) {
+					List<Post> pubblicati = u.getPostPubblicati();
+					for (Post p : pubblicati) {
+						if (p.getEvento().getDescrizione().contains(ricerca)) {
+							risultato.add(p);
+						}
 					}
 				}
 			}
@@ -76,7 +78,7 @@ public class Ricerca extends HttpServlet {
 
 				if (citta != "") {
 					for (Post p : risultato) {
-						if (p.getCitta()!=citta) {
+						if (p.getCitta() != citta) {
 							risultato.remove(p);
 						}
 					}
