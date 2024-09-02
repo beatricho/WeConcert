@@ -22,110 +22,6 @@ import it.unibo.tw.web.beans.Recensione;
 public class Profilo extends HttpServlet {
 
     @Override
-    public void init(ServletConfig conf) throws ServletException {
-        super.init(conf);
-
-        Utente utenteCorrente = (Utente) this.getServletContext().getAttribute("utenteCorrente");
-
-        if (utenteCorrente == null) {
-            utenteCorrente = new Utente();
-            utenteCorrente.setNome("Mario");
-            utenteCorrente.setCognome("Rossi");
-            this.getServletContext().setAttribute("utenteCorrente", utenteCorrente);
-        }
-
-        // Inizializzazione dei post dell'utente se non presenti
-        if (this.getServletContext().getAttribute("postPubblicati") == null) {
-            List<Post> postPubblicati = new ArrayList<Post>();
-
-            // Creazione del primo post
-            /*
-             * List<Evento> eventi = (List<Evento>)
-             * this.getServletContext().getAttribute("eventi");
-             */
-            EtaGruppo eta = new EtaGruppo();
-            eta.setSogliaInferiore(25);
-            eta.setSogliaSuperiore(40);
-
-            Utente utenteAderente = new Utente();
-
-            Post post = new Post();
-            post.setId("post-1");
-            /* post.setEvento(eventi.get(0)); */
-            post.setDescrizione("Qualcuno che venga con me a vedere il grande CLAUDIO BISIO??????");
-            post.setUtentePubblicante(utenteCorrente);
-            post.setDisponibilitaMezzo(DisponibilitaMezzo.HO);
-            post.setEtaGruppo(eta);
-            post.setGenereGruppo(GenereGruppo.MISTO);
-            post.setPartecipantiMax(10);
-
-            // Creazione di adesioni al primo post
-            utenteAderente.setUsername("the_real_Filippo");
-            post.setUtentiAderenti(utenteAderente);
-            utenteAderente = new Utente();
-            utenteAderente.setUsername("Michela89");
-            post.setUtentiAderenti(utenteAderente);
-
-            postPubblicati.add(post);
-
-            // Secondo post
-            post = new Post();
-            eta = new EtaGruppo();
-            eta.setSogliaInferiore(18);
-            eta.setSogliaSuperiore(24);
-            post.setId("post-2");
-            /* post.setEvento(eventi.get(1)); */
-            post.setDescrizione("Cerco degli omies per proxare il nuovo drop di Tedua ueue");
-            post.setUtentePubblicante(utenteCorrente);
-            post.setDisponibilitaMezzo(DisponibilitaMezzo.NON_HO_E_CERCO);
-            post.setEtaGruppo(eta);
-            post.setGenereGruppo(GenereGruppo.MASCHILE);
-            post.setPartecipantiMax(5);
-
-            // Creazione di adesioni al secondo post
-            utenteAderente = new Utente();
-            utenteAderente.setUsername("sfera-ebbasta");
-            post.setUtentiAderenti(utenteAderente);
-            utenteAderente = new Utente();
-            utenteAderente.setUsername("tony_effe_baby");
-            post.setUtentiAderenti(utenteAderente);
-            utenteAderente = new Utente();
-            utenteAderente.setUsername("sosa");
-            post.setUtentiAderenti(utenteAderente);
-            utenteAderente = new Utente();
-            utenteAderente.setUsername("gue");
-            post.setUtentiAderenti(utenteAderente);
-
-            postPubblicati.add(post);
-
-            this.getServletContext().setAttribute("postPubblicati", postPubblicati);
-        }
-
-        // Creazione di recensioni fittizie fatte all'utente corrente
-        if (this.getServletContext().getAttribute("recensioni") == null) {
-            List<Recensione> recensioni = new ArrayList<Recensione>();
-            Recensione recensione = new Recensione();
-            recensione.setId("rec1");
-            recensione.setValutazione(Valutazione.ECCELLENTE);
-            recensione.setCommento("Compagno favoloso!!");
-            recensioni.add(recensione);
-
-            recensione = new Recensione();
-            recensione.setId("rec2");
-            recensione.setValutazione(Valutazione.BUONO);
-            recensione.setCommento("Tutto apposto");
-            recensioni.add(recensione);
-
-            recensione = new Recensione();
-            recensione.setId("rec3");
-            recensione.setValutazione(Valutazione.PESSIMO);
-            recensione.setCommento("Mi ha fatto aspettare sotto la pioggia per mezz'ora, pessimo, MAI PIU' :(");
-            recensioni.add(recensione);
-            this.getServletContext().setAttribute("recensioni", recensioni);
-        }
-    }
-
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Log di controllo per assicurare che GET funzioni
@@ -137,62 +33,95 @@ public class Profilo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String action = request.getParameter("action");
-        List<Post> postPubblicati = (List<Post>) this.getServletContext().getAttribute("postPubblicati");
+        List<Utente> utenti = (List<Utente>) this.getServletContext().getAttribute("utenti");
+        Utente pubblicante = null;
+        Utente aderente = null;
+        Post target = null;
+        String postId = request.getParameter("postId");
+        
+        List<Post> postPubblicati = new ArrayList<Post>();
+        for(Utente u : utenti) {
+        	for(Post p : u.getPostPubblicati()) {
+        		postPubblicati.add(p);
+        	}
+        }
+        
+        for(Post post : postPubblicati) {
+        	if(post.getId().equals(postId)) {
+        		pubblicante = post.getUtentePubblicante();
+        		target = post;
+        	}
+        }
+        
+        List<Post> pubblicati = pubblicante.getPostPubblicati();
 
         if ("modificaDescrizionePost".equals(action)) {
-            String postId = request.getParameter("postId");
-            String nuovaDescrizione = request.getParameter("nuovaDescrizione");
-
-            for (Post post : postPubblicati) {
-                if (post.getId().equals(postId)) {
-                    post.setDescrizione(nuovaDescrizione); // Modifica la descrizione del post
-                    break;
-                }
-            }
+            String nuovaDescrizione = request.getParameter("nuovaDescrizione");          
+                        
+            utenti.remove(pubblicante);
+            pubblicati.remove(target);
+            target.setDescrizione(nuovaDescrizione);
+            pubblicati.add(target);
+            pubblicante.setPostPubblicati(pubblicati);
+            
+            utenti.add(pubblicante);             
         }
 
         else if ("eliminaPost".equals(action)) {
-            String postId = request.getParameter("postId");
-            postPubblicati.removeIf(post -> post.getId().equals(postId)); // Rimuovi il post con l'id specificato
+        	utenti.remove(pubblicante);
+            pubblicati.remove(target);
+            pubblicante.setPostPubblicati(pubblicati);
         }
 
         else if ("eliminaAdesione".equals(action)) {
-            String postId = request.getParameter("postId");
             String username = request.getParameter("username");
-            for (Post post : postPubblicati) {
-                if (post.getId().equals(postId)) {
-                    List<Utente> utentiAderenti = post.getUtentiAderenti();
-                    for (Utente adesione : utentiAderenti) {
-                        if (adesione.getUsername().equals(username)) {
-                            utentiAderenti.remove(adesione);
-                            break;
-                        }
-                    }
-                    break;
-                }
+
+            for(Utente u : utenti) {
+            	if(u.getUsername().equals(username)) {
+            		aderente = u;
+            		break;
+            	}
             }
+            
+            utenti.remove(pubblicante);
+            pubblicati.remove(target);
+            target.getUtentiAderenti().remove(aderente);
+            pubblicati.add(target);
+            pubblicante.setPostPubblicati(pubblicati);
         }
 
         else if ("inserisciAdesione".equals(action)) {
-            String postId = request.getParameter("postId");
             String username = request.getParameter("username");
-            for (Post post : postPubblicati) {
-                if (post.getId().equals(postId)) {
-                    List<Utente> utentiAderenti = post.getUtentiAderenti();
-                    List<Utente> utenti = (List<Utente>) this.getServletContext().getAttribute("utenti");
-                    for (Utente u : utenti) {
-                        if (u.getUsername().equals(username)) {
-                            utentiAderenti.add(u);
-                            break;
-                        }
-                    }
-                    break;
-                }
+
+            for (Utente u : utenti) {
+            	if(u.getUsername().equals(username)) {
+            		aderente=u;
+            		break;
+            	}
             }
+            
+            for(Post post : postPubblicati) {
+            	if(post.getId().equals(postId)) {
+            		pubblicante = post.getUtentePubblicante();
+            		target = post;
+            	}
+            }
+            
+            utenti.remove(pubblicante);
+            pubblicati.remove(target);
+            target.setUtentiAderenti(aderente);
+            pubblicati.add(target);
+            pubblicante.setPostPubblicati(pubblicati);
+            utenti.add(pubblicante);           
+            
+            this.getServletContext().setAttribute("utenti", utenti);
+            
             response.sendRedirect("ricerca.jsp");
         }
-
-        this.getServletContext().setAttribute("postPubblicati", postPubblicati);
+        
+        utenti.add(pubblicante);           
+        this.getServletContext().setAttribute("utenti", utenti);
+        
         response.sendRedirect("profilo.jsp");
     }
 }

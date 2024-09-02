@@ -25,8 +25,9 @@
             <section class="section" id="post-pubblicati-section">
                 <h3>Post Pubblicati</h3>
                 <ul id="post-pubblicati">
-                    <% 
-                        List<Post> postPubblicati = (List<Post>) application.getAttribute("postPubblicati");
+                    <% 	
+                    	Utente utente = (Utente) session.getAttribute("utenteCorrente");
+                        List<Post> postPubblicati = utente.getPostPubblicati();
                         if (postPubblicati != null && !postPubblicati.isEmpty()) {
                             for (Post post : postPubblicati) {
                                 Evento eventoRelativo = post.getEvento();
@@ -95,7 +96,7 @@
                 <h3>Recensioni</h3>
                 <ul id="storico-recensioni">
                     <% 
-                        List<Recensione> storicoRecensioni = (List<Recensione>) application.getAttribute("recensioni");
+                        List<Recensione> storicoRecensioni = utente.getRecensioni();
                         if (storicoRecensioni != null && !storicoRecensioni.isEmpty()) {
                             for (Recensione rec : storicoRecensioni) {
                     %>

@@ -49,9 +49,9 @@ public class Registrazione extends HttpServlet {
             Evento secondo = new Evento();
             secondo.setId("evento2");
             secondo.setData(LocalDate.of(2025, 2, 10));
-            primo.setOrario(LocalTime.of(21, 0));
-            primo.setLuogo("Bologna");
-            primo.setDescrizione("Tedua");
+            secondo.setOrario(LocalTime.of(21, 0));
+            secondo.setLuogo("Bologna");
+            secondo.setDescrizione("Tedua");
             eventi.add(secondo);
 
             this.getServletContext().setAttribute("eventi", eventi);
