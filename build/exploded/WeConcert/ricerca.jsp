@@ -11,10 +11,10 @@
 
 <body>
 
-	<jsp:useBean id="utenteCorrente" class="it.unibo.tw.web.beans.Utente"
-		scope="session"></jsp:useBean>
-	<jsp:useBean id="risultatoRicerca" class="java.util.List"
-		scope="session"></jsp:useBean>
+	<jsp:usebean id="utenteCorrente" class="it.unibo.tw.web.beans.Utente"
+		scope="session"></jsp:usebean>
+	<jsp:usebean id="risultatoRicerca" class="java.util.List"
+		scope="session"></jsp:usebean>
 
 	<script>
 		function validateForm() {
