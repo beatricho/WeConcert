@@ -1,2 +1,1 @@
-\ant\build.xml
-\ant\environment
+\ant\*
