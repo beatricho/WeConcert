@@ -45,8 +45,7 @@
                                 <li class="post-item">
                                     <div class="post-info">
                                         <!-- Immagine della Locandina dell'Evento -->
-                                        <img src="https://statics.cedscdn.it/uploads/ckfile/202304/claudio%20bisio%20carriera_29153148.jpg" alt="Locandina Evento" class="post-locandina">
-                                        <p>PROVA</p>
+                                        <img src="<%= URLLocandina %>" alt="Locandina Evento" class="post-locandina">
                                         <div class="post-header">
                                             <span class="post-descrizione"><%= post.getDescrizione() %></span>
                                             <div class="post-buttons">
