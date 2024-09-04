@@ -44,6 +44,7 @@ public class Registrazione extends HttpServlet {
             primo.setOrario(LocalTime.of(20, 0));
             primo.setLuogo("Mantova");
             primo.setDescrizione("Claudio Bisio");
+            primo.setURLLocandina("https://statics.cedscdn.it/uploads/ckfile/202304/claudio%20bisio%20carriera_29153148.jpg");
             eventi.add(primo);
 
             Evento secondo = new Evento();
@@ -52,6 +53,7 @@ public class Registrazione extends HttpServlet {
             secondo.setOrario(LocalTime.of(21, 0));
             secondo.setLuogo("Bologna");
             secondo.setDescrizione("Tedua");
+            secondo.setURLLocandina("https://www.repstatic.it/content/nazionale/img/2024/06/02/203128742-c70b776a-c32c-4001-ae42-ad4fffb4cff7.jpg");
             eventi.add(secondo);
 
             this.getServletContext().setAttribute("eventi", eventi);

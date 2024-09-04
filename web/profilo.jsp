@@ -36,7 +36,7 @@
                                 LocalTime orario = null;
                                 String luogo = "";
                                 if(eventoRelativo != null){   
-                                    URLLocandina = eventoRelativo.getURLLocandina();
+                                	URLLocandina = eventoRelativo.getURLLocandina();
                                     data = eventoRelativo.getData();
                                     orario = eventoRelativo.getOrario();
                                     luogo = eventoRelativo.getLuogo();
@@ -45,7 +45,8 @@
                                 <li class="post-item">
                                     <div class="post-info">
                                         <!-- Immagine della Locandina dell'Evento -->
-                                        <img src= "<%= URLLocandina %>" alt="Locandina Evento" class="post-locandina">
+                                        <img src="https://statics.cedscdn.it/uploads/ckfile/202304/claudio%20bisio%20carriera_29153148.jpg" alt="Locandina Evento" class="post-locandina">
+                                        <p>PROVA</p>
                                         <div class="post-header">
                                             <span class="post-descrizione"><%= post.getDescrizione() %></span>
                                             <div class="post-buttons">
