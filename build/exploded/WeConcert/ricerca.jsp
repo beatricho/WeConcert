@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<%@ page import="java.util.*"%>
+<%@ page import="java.time.*"%>
+<%@ page import="it.unibo.tw.web.beans.*"%>
+
 <html lang="it">
 <head>
 <meta charset="UTF-8">
@@ -12,8 +17,6 @@
 <body>
 
 	<jsp:useBean id="utenteCorrente" class="it.unibo.tw.web.beans.Utente"
-		scope="session"></jsp:useBean>
-	<jsp:useBean id="risultatoRicerca" class="java.util.List"
 		scope="session"></jsp:useBean>
 
 	<script>
@@ -50,10 +53,7 @@
 					</div>
 				</a>
 				<div class="sidebar">
-					<a class="menu-item active"> <span><i
-							class="uil uil-home"></i></span>
-						<h3>Torna alla home</h3>
-					</a>
+            		<button class="btn-back" onclick="window.location.href='WelcomeView.html'">Torna alla pagina iniziale</button>
 				</div>
 			</div>
 			<form id="fileform" action="<%=request.getContextPath()%>/ricerca"
@@ -134,6 +134,7 @@
 			<div class="middle">
 				<div class="feed">
 					<%
+					List<Post> risultatoRicerca = (List<Post>) session.getAttribute("risultatoRicerca");
 					Integer err = (Integer) session.getAttribute("err");
 					if (err != null) {
 						if (err == 0) {
@@ -188,7 +189,7 @@
 							<!-- Adesioni degli utenti -->
 							<div class="adesioni">
 								<%
-								if (post.getUtentiAderenti.size() != post.getPartecipantiMax) {
+								if (post.getUtentiAderenti().size() != post.getPartecipantiMax()) {
 								%>
 								<button class="btn-inserisci-adesione"
 									onclick="inserisciAdesione('<%=post.getId()%>', '<%=utenteCorrente.getUsername()%>')">

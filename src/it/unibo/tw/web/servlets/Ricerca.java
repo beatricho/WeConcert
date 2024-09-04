@@ -20,8 +20,12 @@ public class Ricerca extends HttpServlet {
 	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String ricerca = request.getParameter("ricercaString");
 		String tipo = request.getParameter("ricercaTipo");
-		GenereGruppo genere = GenereGruppo.valueOf(request.getParameter("genereGruppo"));
-		DisponibilitaMezzo disp = DisponibilitaMezzo.valueOf(request.getParameter("disponibilitaMezzo"));
+		GenereGruppo genere = null;
+		if(request.getParameter("genereGruppo")!= null)
+		 genere = GenereGruppo.valueOf(request.getParameter("genereGruppo"));
+		DisponibilitaMezzo disp = null;
+		if(request.getParameter("disponibilitaMezzo")!= null)
+		 disp = DisponibilitaMezzo.valueOf(request.getParameter("disponibilitaMezzo"));
 		String citta = request.getParameter("citta");
 		HttpSession sessione = request.getSession();
 
@@ -39,7 +43,7 @@ public class Ricerca extends HttpServlet {
 				for (Utente u : utenti) {
 					List<Post> pubblicati = u.getPostPubblicati();
 					for (Post p : pubblicati) {
-						if (p.getEvento().getDescrizione().contains(ricerca)) {
+						if (p.getEvento().getDescrizione().toLowerCase().contains(ricerca.toLowerCase())) {
 							risultato.add(p);
 						}
 					}
