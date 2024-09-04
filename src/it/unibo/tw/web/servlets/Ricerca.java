@@ -28,11 +28,12 @@ public class Ricerca extends HttpServlet {
 		 disp = DisponibilitaMezzo.valueOf(request.getParameter("disponibilitaMezzo"));
 		String citta = request.getParameter("citta");
 		HttpSession sessione = request.getSession();
+		Utente pubblicante = (Utente) sessione.getAttribute("utenteCorrente");
 
 		List<Post> risultato = new ArrayList<>();
 		List<Utente> utenti = (List<Utente>) this.getServletContext().getAttribute("utenti");
 		if (tipo != null) {
-			if (tipo.equals("Utente")) {
+			if (tipo.equals("utente")) {
 				for (Utente u : utenti) {
 					if (u.getUsername().equals(ricerca)) {
 						risultato = u.getPostPubblicati();
@@ -43,7 +44,7 @@ public class Ricerca extends HttpServlet {
 				for (Utente u : utenti) {
 					List<Post> pubblicati = u.getPostPubblicati();
 					for (Post p : pubblicati) {
-						if (p.getEvento().getDescrizione().toLowerCase().contains(ricerca.toLowerCase())) {
+						if (p.getEvento().getDescrizione().toLowerCase().contains(ricerca.toLowerCase()) && !p.getUtentePubblicante().equals(pubblicante)) {
 							risultato.add(p);
 						}
 					}
