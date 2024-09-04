@@ -55,7 +55,7 @@
 			</div>
 			<form id="fileform" action="<%=request.getContextPath()%>/ricerca"
 				method="post" onsubmit="return validateForm()">
-
+				 <input type="hidden" name="tipo" value="ricerca">
 				<div class="search-container"> <input id="ricercaString"
 						name="ricercaString" type="text" class="search-input"
 						placeholder="Inserire il nome di un utente o di un artista" />
@@ -114,9 +114,9 @@
 						<b><legend>Et‡ </legend></b> <label for="etaMinima"> Et‡
 							minima: <input type="text" id="etaMinima" name="etaMinima"
 							placeholder="Inserisci l'et√† minima">
-						</label> <br> <label for="etaMassima"> Et‡ massima: <input
+						</label> <br> <label for="etaMassima"> Et‡† massima: <input
 							type="text" id="etaMassima" name="etaMassima"
-							placeholder="Inserisci l'et√†¬†massima">
+							placeholder="Inserisci l'et‡†massima">
 						</label>
 					</fieldset>
 
@@ -166,13 +166,13 @@
 									@
 									<%=luogo%></p>
 								<p>
-									<strong>Disponibilit√† Mezzo:</strong>
+									<strong>Disponibilit‡ Mezzo:</strong>
 									<%=post.getDisponibilitaMezzo()%></p>
 								<p>
 									<strong>Partecipanti Max:</strong>
 									<%=post.getPartecipantiMax()%></p>
 								<p>
-									<strong>Et√† Gruppo:</strong>
+									<strong>Et‡† Gruppo:</strong>
 									<%=post.getEtaGruppo().getSogliaInferiore()%>
 									-
 									<%=post.getEtaGruppo().getSogliaSuperiore()%>
@@ -188,9 +188,13 @@
 								<%
 								if (post.getUtentiAderenti().size() != post.getPartecipantiMax()) {
 								%>
-								<button class="btn-inserisci-adesione"
-									onclick="inserisciAdesione('<%=post.getId()%>', '<%=utenteCorrente.getUsername()%>')">
+								<form action="<%=request.getContextPath()%>/ricerca" method="post">
+								<button class="btn-inserisci-adesione" type="submit">
 									Aderisci!</button>
+								    <input type="hidden" name="tipo" value="adesione">
+								    <input type="hidden" name="idPost" value="<%=post.getId()%>">
+								    <input type="hidden" name="utenteAderente" value="<%=utenteCorrente.getUsername()%>">
+								</form>
 								<%
 								}
 								%>

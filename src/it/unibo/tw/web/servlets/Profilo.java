@@ -89,35 +89,6 @@ public class Profilo extends HttpServlet {
             pubblicati.add(target);
             pubblicante.setPostPubblicati(pubblicati);
         }
-
-        else if ("inserisciAdesione".equals(action)) {
-            String username = request.getParameter("username");
-
-            for (Utente u : utenti) {
-            	if(u.getUsername().equals(username)) {
-            		aderente=u;
-            		break;
-            	}
-            }
-            
-            for(Post post : postPubblicati) {
-            	if(post.getId().equals(postId)) {
-            		pubblicante = post.getUtentePubblicante();
-            		target = post;
-            	}
-            }
-            
-            utenti.remove(pubblicante);
-            pubblicati.remove(target);
-            target.setUtentiAderenti(aderente);
-            pubblicati.add(target);
-            pubblicante.setPostPubblicati(pubblicati);
-            utenti.add(pubblicante);           
-            
-            this.getServletContext().setAttribute("utenti", utenti);
-            
-            response.sendRedirect("ricerca.jsp");
-        }
         
         utenti.add(pubblicante);           
         this.getServletContext().setAttribute("utenti", utenti);
