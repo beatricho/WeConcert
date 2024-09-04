@@ -31,7 +31,6 @@
 	<servlet>
 	    <servlet-name>Profilo</servlet-name>
         <servlet-class>it.unibo.tw.web.servlets.Profilo</servlet-class>
-	    <load-on-startup>1</load-on-startup>	<!-- Viene caricata all'avvio della web app -->
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>Profilo</servlet-name>

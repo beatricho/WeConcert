@@ -61,7 +61,7 @@ public class Autenticazione extends HttpServlet {
 
             this.getServletContext().setAttribute("eventi", eventi);
             
-            // Creazione utente già registrato
+            // Creazione utenti già registrati
             Utente effe = new Utente();
             effe.setUsername("effe");
             effe.setPassword("effe");
@@ -87,11 +87,16 @@ public class Autenticazione extends HttpServlet {
             post.setPartecipantiMax(10);
 
             // Creazione di adesioni al primo post
-            utenteAderente.setUsername("the_real_Filippo");
-            post.setUtentiAderenti(utenteAderente);
-            utenteAderente = new Utente();
-            utenteAderente.setUsername("Michela89");
-            post.setUtentiAderenti(utenteAderente);
+            Utente filo = new Utente();
+            filo.setUsername("the_real_Filippo");
+            filo.setGenere(Genere.UOMO);
+            Utente michew = new Utente();
+            michew.setUsername("Michela89");
+            michew.setGenere(Genere.DONNA);
+            utenti.add(filo);
+            utenti.add(michew);
+            post.setUtentiAderenti(filo);
+            post.setUtentiAderenti(michew);
             
             effe.pubblicaPost(post);
             
@@ -110,18 +115,21 @@ public class Autenticazione extends HttpServlet {
             post.setPartecipantiMax(5);
 
             // Creazione di adesioni al secondo post
-            utenteAderente = new Utente();
-            utenteAderente.setUsername("sfera-ebbasta");
-            post.setUtentiAderenti(utenteAderente);
-            utenteAderente = new Utente();
-            utenteAderente.setUsername("tony_effe_baby");
-            post.setUtentiAderenti(utenteAderente);
-            utenteAderente = new Utente();
-            utenteAderente.setUsername("sosa");
-            post.setUtentiAderenti(utenteAderente);
-            utenteAderente = new Utente();
-            utenteAderente.setUsername("gue");
-            post.setUtentiAderenti(utenteAderente);
+            Utente sfera = new Utente();
+            sfera.setUsername("sfera-ebbasta");
+            sfera.setGenere(Genere.UOMO);
+            Utente tony = new Utente();
+            tony.setUsername("tony_effe_baby");
+            tony.setGenere(Genere.UOMO);
+            Utente sosa = new Utente();
+            sosa.setUsername("sosa");
+            sosa.setGenere(Genere.UOMO);
+            utenti.add(sfera);
+            utenti.add(tony);
+            utenti.add(sosa);
+            post.setUtentiAderenti(sfera);
+            post.setUtentiAderenti(tony);
+            post.setUtentiAderenti(sosa);
 
             effe.pubblicaPost(post);
             

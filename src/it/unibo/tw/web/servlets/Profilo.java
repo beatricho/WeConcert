@@ -56,7 +56,7 @@ public class Profilo extends HttpServlet {
         List<Post> pubblicati = pubblicante.getPostPubblicati();
 
         if ("modificaDescrizionePost".equals(action)) {
-            String nuovaDescrizione = request.getParameter("nuovaDescrizione");          
+            String nuovaDescrizione = request.getParameter("nuovaDescrizione");    
                         
             utenti.remove(pubblicante);
             pubblicati.remove(target);
@@ -83,8 +83,8 @@ public class Profilo extends HttpServlet {
             	}
             }
             
-            utenti.remove(pubblicante);
-            pubblicati.remove(target);
+            utenti.remove(utenti.indexOf(pubblicante));
+            pubblicati.remove(pubblicati.indexOf(target));
             target.getUtentiAderenti().remove(aderente);
             pubblicati.add(target);
             pubblicante.setPostPubblicati(pubblicati);
