@@ -42,9 +42,6 @@
 		<div class="container">
 			<div class="top">
 				<a class="profile">
-					<div class="profile-pic">
-						<img src="marcopisellonio.jpg" />
-					</div>
 					<div class="handle">
 						<h4><%=utenteCorrente.getNome()%>
 							<%=utenteCorrente.getCognome()%></h4>
@@ -93,7 +90,7 @@
 
 					<!-- Filtro per disponibilitÃ  del mezzo -->
 					<fieldset>
-						<b><legend>Disponibilità del mezzo</legend></b> <label> <input
+						<b><legend>Disponibilit� del mezzo</legend></b> <label> <input
 							type="checkbox" name="disponibilitaMezzo" value="ho"> Ho
 						</label> <br> <label> <input type="checkbox"
 							name="disponibilitaMezzo" value="nonHoCerco"> Non ho e
@@ -106,7 +103,7 @@
 
 					<!-- Filtro per cittÃ  di provenienza -->
 					<fieldset>
-						<b><legend>Città </legend></b> <label for="citta"> Città
+						<b><legend>Citt� </legend></b> <label for="citta"> Citt�
 							di provenienza: <input type="text" id="citta" name="citta"
 							placeholder="Inserisci la città">
 						</label>
@@ -114,10 +111,10 @@
 
 					<!-- Filtri per etÃ  minima e massima -->
 					<fieldset>
-						<b><legend>Età </legend></b> <label for="etaMinima"> Età
+						<b><legend>Et� </legend></b> <label for="etaMinima"> Et�
 							minima: <input type="text" id="etaMinima" name="etaMinima"
 							placeholder="Inserisci l'età minima">
-						</label> <br> <label for="etaMassima"> Età massima: <input
+						</label> <br> <label for="etaMassima"> Et� massima: <input
 							type="text" id="etaMassima" name="etaMassima"
 							placeholder="Inserisci l'età massima">
 						</label>

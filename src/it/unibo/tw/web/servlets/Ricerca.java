@@ -44,7 +44,7 @@ public class Ricerca extends HttpServlet {
 				for (Utente u : utenti) {
 					List<Post> pubblicati = u.getPostPubblicati();
 					for (Post p : pubblicati) {
-						if (p.getEvento().getDescrizione().toLowerCase().contains(ricerca.toLowerCase()) && !p.getUtentePubblicante().equals(pubblicante)) {
+						if (p.getEvento().getDescrizione().toLowerCase().contains(ricerca.toLowerCase()) && !p.getUtentePubblicante().getUsername().equals(pubblicante.getUsername())) {
 							risultato.add(p);
 						}
 					}
