@@ -1,0 +1,108 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+}
+
+.left-banner {
+    width: 30%;
+    background-color: #104862; /* Cambiato il colore di sfondo per renderlo simile */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: white; /* Testo bianco per contrastare con il background */
+}
+
+.eventi h2 {
+    margin-top: 0;
+    color: white; /* Colore del testo modificato */
+}
+
+.evento {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f9f9f9; /* Colore simile alla tabella */
+    cursor: pointer;
+    border-radius: 4px;
+    color: #333; /* Testo scuro per contrasto */
+}
+
+.evento:hover {
+    background-color: #ddd; /* Colore hover mantenuto simile */
+}
+
+.utenti .utente {
+    padding: 8px;
+    margin-top: 10px;
+    background-color: #f9f9f9; /* Colore simile alla tabella */
+    cursor: pointer;
+    border-radius: 4px;
+    color: #333; /* Testo scuro */
+}
+
+.utenti .utente:hover {
+    background-color: #ddd;
+}
+
+.right-content {
+    width: 70%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #fff; /* Colore di sfondo per coerenza */
+    color: #333;
+}
+
+#recensione-form {
+    display: none;
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#recensione-form h3 {
+    margin-top: 0;
+    color: #104862; /* Testo di colore simile alla tabella */
+}
+
+#valutazione, #commento {
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ccc; /* Bordo simile alla tabella */
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.footer {
+    padding: 10px;
+    background-color: #104862; /* Stessa tonalità della tabella */
+    text-align: center;
+    color: white;
+}
+
+.footer button {
+    padding: 10px 20px;
+    background-color: #0073e6; /* Colore del pulsante simile alla prima pagina */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.footer button:hover {
+    background-color: #005bb5;
+}
