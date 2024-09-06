@@ -55,6 +55,15 @@
 	    <url-pattern>/ricerca</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+	    <servlet-name>EseguiRecensione</servlet-name>
+        <servlet-class>it.unibo.tw.web.servlets.EseguiRecensione</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EseguiRecensione</servlet-name>
+	    <url-pattern>/eseguiRecensione</url-pattern>
+	</servlet-mapping>
+
     <welcome-file-list>
 		<welcome-file>login-reg.jsp</welcome-file>
 	</welcome-file-list>

@@ -20,12 +20,18 @@ public class Ricerca extends HttpServlet {
 	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String ricerca = request.getParameter("ricercaString");
 		String tipo = request.getParameter("ricercaTipo");
-		GenereGruppo genere = null;
-		if (request.getParameter("genereGruppo") != null)
-			genere = GenereGruppo.valueOf(request.getParameter("genereGruppo"));
-		DisponibilitaMezzo disp = null;
-		if (request.getParameter("disponibilitaMezzo") != null)
-			disp = DisponibilitaMezzo.valueOf(request.getParameter("disponibilitaMezzo"));
+		String[] temp = request.getParameterValues("genereGruppo");
+		List<GenereGruppo> genere = new ArrayList<>();
+		if (temp != null)
+			for (String s : temp) {
+				genere.add(GenereGruppo.valueOf(s.toUpperCase()));
+			}
+		temp = request.getParameterValues("disponibilitaMezzo");
+		List<DisponibilitaMezzo> disp = new ArrayList<>();
+		if (temp != null)
+			for (String s : temp) {
+				disp.add(DisponibilitaMezzo.valueOf(s.toUpperCase()));
+			}
 		String citta = request.getParameter("citta");
 		HttpSession sessione = request.getSession();
 		Utente pubblicante = (Utente) sessione.getAttribute("utenteCorrente");
@@ -59,50 +65,79 @@ public class Ricerca extends HttpServlet {
 					sessione.setAttribute("err", 1);
 				} else {
 
-					if (genere != null) {
+					boolean trovato = false;
+					List<Post> toRemove = new ArrayList<>();
+					if (!genere.isEmpty() && !risultato.isEmpty()) {
 						for (Post p : risultato) {
-							if (p.getGenereGruppo() != genere) {
-								risultato.remove(p);
+							for (GenereGruppo g : genere) {
+								if (p.getGenereGruppo().getNumero() == g.getNumero()) {
+									trovato = true;
+									break;
+								}
 							}
+							if (!trovato) {
+								toRemove.add(p);
+							} else
+								trovato = false;
 						}
+						risultato.removeAll(toRemove);
 					}
-
-					if (request.getParameter("etaMinima") != "") {
+					
+					toRemove.clear();
+					if (request.getParameter("etaMinima") != "" && !risultato.isEmpty()) {
 						int etaMin = Integer.valueOf(request.getParameter("etaMinima"));
 						for (Post p : risultato) {
 							if (p.getEtaGruppo().getSogliaInferiore() < etaMin) {
-								risultato.remove(p);
+								toRemove.add(p);
 							}
 						}
+						risultato.removeAll(toRemove);
 					}
 
-					if (request.getParameter("etaMassima") != "") {
+					toRemove.clear();
+					if (request.getParameter("etaMassima") != "" && !risultato.isEmpty()) {
 						int etaMax = Integer.valueOf(request.getParameter("etaMassima"));
 						for (Post p : risultato) {
 							if (p.getEtaGruppo().getSogliaSuperiore() > etaMax) {
-								risultato.remove(p);
+								toRemove.add(p);
 							}
 						}
+						risultato.removeAll(toRemove);
 					}
 
-					if (citta != "") {
+					toRemove.clear();
+					if (citta != "" && !risultato.isEmpty()) {
 						for (Post p : risultato) {
 							if (p.getCitta() != citta) {
-								risultato.remove(p);
+								toRemove.add(p);
 							}
 						}
+						risultato.removeAll(toRemove);
 					}
 
-					if (disp != null) {
+					toRemove.clear();
+					trovato = false;
+					if (!disp.isEmpty() && !risultato.isEmpty()) {
 						for (Post p : risultato) {
-							if (p.getDisponibilitaMezzo() != disp) {
-								risultato.remove(p);
+							for (DisponibilitaMezzo g : disp) {
+								if (p.getDisponibilitaMezzo().getNumero() == g.getNumero()) {
+									trovato = true;
+									break;
+								}
 							}
+							if (!trovato) {
+								toRemove.add(p);
+							} else
+								trovato = false;
 						}
+						risultato.removeAll(toRemove);
 					}
 
-					sessione.setAttribute("err", 0);
-					sessione.setAttribute("risultatoRicerca", risultato);
+					if (!risultato.isEmpty()) {
+						sessione.setAttribute("err", 0);
+						sessione.setAttribute("risultatoRicerca", risultato);
+					} else
+						sessione.setAttribute("err", 1);
 				}
 			} else {
 				sessione.setAttribute("err", 2);
@@ -122,7 +157,7 @@ public class Ricerca extends HttpServlet {
 					}
 				}
 			}
-			
+
 			pubblicati = pubblicante.getPostPubblicati();
 			aderente = (Utente) sessione.getAttribute("utenteCorrente");
 

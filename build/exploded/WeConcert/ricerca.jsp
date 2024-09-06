@@ -93,10 +93,10 @@
 						<b><legend>Disponibilità  del mezzo</legend></b> <label> <input
 							type="checkbox" name="disponibilitaMezzo" value="ho"> Ho
 						</label> <br> <label> <input type="checkbox"
-							name="disponibilitaMezzo" value="nonHoCerco"> Non ho e
+							name="disponibilitaMezzo" value="non_ho_e_cerco"> Non ho e
 							cerco
 						</label> <br> <label> <input type="checkbox"
-							name="disponibilitaMezzo" value="nonHoNonCerco"> Non ho e
+							name="disponibilitaMezzo" value="non_ho_e_non_cerco"> Non ho e
 							non cerco
 						</label>
 					</fieldset>
@@ -105,7 +105,7 @@
 					<fieldset>
 						<b><legend>Città </legend></b> <label for="citta"> Città
 							di provenienza: <input type="text" id="citta" name="citta"
-							placeholder="Inserisci la cittÃ ">
+							placeholder="Inserisci la città">
 						</label>
 					</fieldset>
 
@@ -113,7 +113,7 @@
 					<fieldset>
 						<b><legend>Età </legend></b> <label for="etaMinima"> Età
 							minima: <input type="text" id="etaMinima" name="etaMinima"
-							placeholder="Inserisci l'etÃ  minima">
+							placeholder="Inserisci l'età minima">
 						</label> <br> <label for="etaMassima"> Età  massima: <input
 							type="text" id="etaMassima" name="etaMassima"
 							placeholder="Inserisci l'età massima">

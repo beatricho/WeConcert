@@ -83,6 +83,7 @@ public class Autenticazione extends HttpServlet {
             post.setEvento(eventi.get(0));
             post.setDescrizione("Qualcuno che venga con me a vedere il grande CLAUDIO BISIO??????");
             post.setUtentePubblicante(effe);
+            post.setCitta("");
             post.setDisponibilitaMezzo(DisponibilitaMezzo.HO);
             post.setEtaGruppo(eta);
             post.setGenereGruppo(GenereGruppo.MISTO);
@@ -109,6 +110,7 @@ public class Autenticazione extends HttpServlet {
             eta.setSogliaSuperiore(24);
             post.setId("post-2");
             post.setEvento(eventi.get(1));
+            post.setCitta("");
             post.setDescrizione("Cerco degli omies per proxare il nuovo drop di Tedua ueue");
             post.setUtentePubblicante(effe);
             post.setDisponibilitaMezzo(DisponibilitaMezzo.NON_HO_E_CERCO);

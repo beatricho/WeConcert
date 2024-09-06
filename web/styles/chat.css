@@ -107,7 +107,7 @@ body {
     background-color:  #104862;
 }
 
-.home-button-container {
+ .home-button-container {
     margin-top: auto;
     padding: 15px;
     background-color: #f1f1f1;
@@ -115,11 +115,11 @@ body {
     text-align: center;
 }
 
-.home-button {
-    padding: 10px 20px;
-    background-color:  #104862;
-    color: white;
+.btn-back {
+    background-color: #0073e6;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    padding: 8px 12px;
+    border-radius: 4px;
     cursor: pointer;
 }

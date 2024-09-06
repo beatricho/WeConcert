@@ -45,7 +45,7 @@
 		    %>
 		   
             <div class="home-button-container">
-                <button class="home-button"><a href="WelcomeView.html">Schermata Home</a></button>
+                <button class="btn-back" onclick="window.location.href='WelcomeView.html'">Torna alla pagina iniziale</button>
             </div>
             
         </div>
